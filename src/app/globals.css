@@ -3,13 +3,13 @@
 :root {
   --background: #f5f9ff;
   --foreground: #171717;
-  --tetz-primary: #0066cc;
-  --tetz-secondary: #004b96;
+  --tetz-primary: #1E184D;
+  --tetz-secondary: #1E184D;
   --tetz-accent: #00a0e3;
   --tetz-light: #f5f9ff;
   --tetz-dark: #001e3c;
-  --tetz-gradient-start: #0066cc;
-  --tetz-gradient-end: #004b96;
+  --tetz-gradient-start: #1E184D;
+  --tetz-gradient-end: #1E184D;
 }
 
 @theme inline {

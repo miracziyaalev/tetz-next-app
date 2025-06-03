@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
+import { toPng } from 'html-to-image';
 
 interface User {
     id: string;
@@ -27,6 +30,8 @@ interface UserCardProps {
 
 const UserCard = ({ user }: UserCardProps) => {
     const [copySuccess, setCopySuccess] = useState(false);
+    const [downloadSuccess, setDownloadSuccess] = useState(false);
+    const qrCodeRef = useRef<HTMLDivElement>(null);
 
     // Debug: Gelen kullanıcı verilerini konsola yazdır
     useEffect(() => {
@@ -80,6 +85,30 @@ END:VCARD`;
             .catch(err => {
                 console.error('Kopyalama başarısız oldu:', err);
             });
+    };
+
+    // QR kodunu PNG olarak indirme fonksiyonu
+    const downloadQRCode = () => {
+        if (!qrCodeRef.current || typeof window === 'undefined') return;
+
+        try {
+            // html-to-image kütüphanesini kullanarak QR kodunu PNG'ye dönüştür
+            toPng(qrCodeRef.current, { cacheBust: true, quality: 1.0 })
+                .then((dataUrl) => {
+                    const link = document.createElement('a');
+                    link.download = `${user.full_name || "kullanici"}_vcard.png`;
+                    link.href = dataUrl;
+                    link.click();
+
+                    setDownloadSuccess(true);
+                    setTimeout(() => setDownloadSuccess(false), 2000);
+                })
+                .catch((error) => {
+                    console.error('QR kod indirme hatası:', error);
+                });
+        } catch (error) {
+            console.error("QR kod indirme hatası:", error);
+        }
     };
 
     // Kullanıcı verisi yoksa boş div döndür
@@ -161,19 +190,33 @@ END:VCARD`;
                     {/* QR Kod Görüntüleme Alanı */}
                     <div className="flex flex-col md:flex-row gap-5">
                         {/* QR Kod */}
-                        <div className="h-auto bg-white border border-gray-200 rounded shadow-sm flex items-center justify-center">
-                            <QRCodeSVG
-                                value={getVCardQRValue()}
-                                size={180}
-                                bgColor={"#ffffff"}
-                                fgColor={"#000000"}
-                                level={"M"}
-                                includeMargin={true}
-                            />
+                        <div className="h-full min-h-[215px] bg-white border border-gray-200 rounded shadow-sm flex items-center justify-center p-4 relative">
+                            <button
+                                onClick={downloadQRCode}
+                                className="absolute top-2 right-2 p-1.5 bg-white text-gray-700 rounded-md hover:bg-gray-100 transition-colors border border-gray-200 flex items-center gap-1 shadow-sm z-10"
+                                title="QR Kodu İndir"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                {downloadSuccess && <span className="text-xs text-green-600 ml-1">✓</span>}
+                            </button>
+                            <div ref={qrCodeRef} className="bg-white">
+                                <QRCodeSVG
+                                    value={getVCardQRValue()}
+                                    size={180}
+                                    bgColor={"#ffffff"}
+                                    fgColor={"#000000"}
+                                    level={"M"}
+                                    includeMargin={true}
+                                />
+                            </div>
                         </div>
                         {/* vCard String */}
                         <div className="flex-1 h-full">
-                            <div className="relative bg-gray-50 p-3 rounded border border-gray-200 h-full flex flex-col">
+                            <div className="relative bg-gray-50 p-3 rounded border border-gray-200 h-full min-h-[215px] flex flex-col">
                                 <button
                                     onClick={copyToClipboard}
                                     className="absolute top-2 right-2 p-1.5 bg-white text-gray-700 rounded-md hover:bg-gray-100 transition-colors border border-gray-200 flex items-center gap-1 shadow-sm"
