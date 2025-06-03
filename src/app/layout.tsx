@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "TETZ - Türkiye Eğitim Teknolojileri Zirvesi",
   description: "Türkiye Eğitim Teknolojileri Zirvesi Katılımcı Bilgi Sistemi",
+  icons: {
+    icon: '/final.jpg',
+  },
 };
 
 export default function RootLayout({
