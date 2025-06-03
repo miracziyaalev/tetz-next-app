@@ -34,6 +34,13 @@ export default function Home() {
   const [error, setError] = useState("");
   const [searched, setSearched] = useState(false);
 
+  // Telefon numarası değişikliğini sadece rakam olarak kabul eden fonksiyon
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Sadece rakam karakterlerini kabul et
+    const numbersOnly = e.target.value.replace(/\D/g, '');
+    setPhoneNumber(numbersOnly);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -157,8 +164,10 @@ export default function Home() {
                   {searchType === "phone" && (
                     <input
                       type="tel"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                       value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      onChange={handlePhoneNumberChange}
                       placeholder="Telefon Numarası (örn: 905363603060)"
                       className="tetz-input"
                       required
