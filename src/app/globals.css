@@ -1,8 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #f5f9ff;
   --foreground: #171717;
+  --tetz-primary: #0066cc;
+  --tetz-secondary: #004b96;
+  --tetz-accent: #00a0e3;
+  --tetz-light: #f5f9ff;
+  --tetz-dark: #001e3c;
+  --tetz-gradient-start: #0066cc;
+  --tetz-gradient-end: #004b96;
 }
 
 @theme inline {
@@ -12,15 +19,42 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background: var(--tetz-light);
+  color: var(--tetz-dark);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.tetz-gradient {
+  background: linear-gradient(to right, var(--tetz-gradient-start), var(--tetz-gradient-end));
+}
+
+.tetz-button {
+  @apply px-6 py-2 bg-[#0066cc] text-white rounded-md hover:bg-[#004b96] focus:outline-none focus:ring-2 focus:ring-[#0066cc] disabled:opacity-50 transition-colors;
+}
+
+.tetz-input {
+  @apply flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0066cc] focus:border-[#0066cc] text-gray-800 bg-white;
+}
+
+.tetz-card {
+  @apply bg-white rounded-lg shadow-lg overflow-hidden;
+}
+
+.tetz-header {
+  @apply bg-gradient-to-r from-[#0066cc] to-[#004b96] p-6 text-white;
+}
+
+.tetz-container {
+  @apply w-full max-w-7xl mx-auto;
+}
+
+.tetz-qr-code {
+  @apply p-3 bg-white rounded-lg shadow-sm border border-gray-200;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
