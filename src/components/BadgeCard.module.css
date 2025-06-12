@@ -1,0 +1,56 @@
+.badgeCard {
+    width: 90mm;
+    height: 55mm;
+    border: 1px solid #ddd;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    color: black;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.header {
+    background-color: #004a99;
+    color: white;
+    text-align: center;
+    padding: 6px;
+    font-size: 10pt;
+}
+
+.body {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.info {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.name {
+    margin: 0 0 5px 0;
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+.title,
+.institution {
+    margin: 2px 0;
+    font-size: 10pt;
+}
+
+.institution {
+    font-weight: bold;
+}
+
+.qrCode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 5px;
+}

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import React, { useRef, useState } from "react";
 import UserCard from "../components/UserCard";
+import BadgeCard from "../components/BadgeCard";
 
 interface User {
   id: string;
@@ -33,6 +34,60 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [searched, setSearched] = useState(false);
+  const badgeRef = useRef<HTMLDivElement>(null);
+
+  const handlePrintPDF = async () => {
+    if (!badgeRef.current) return;
+    // @ts-expect-error: html2pdf.js için tip bulunamadı
+    const html2pdf = (await import('html2pdf.js')).default;
+    const opt = {
+      margin: 0,
+      filename: `${user?.full_name || "Yaka-Karti"}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "cm", format: [10, 15], orientation: "portrait" },
+    };
+    html2pdf()
+      .set(opt)
+      .from(badgeRef.current)
+      .toPdf()
+      .get('pdf')
+      // @ts-expect-error: pdf tipi bilinmiyor, html2pdf.js için
+      .then(pdf => {
+        const blob = pdf.output('blob');
+        const url = URL.createObjectURL(blob);
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+          printWindow.document.write(`
+            <html>
+              <head>
+                <title>Yazdır</title>
+                <script>
+                  function printAndClose() {
+                    var iframe = document.getElementById('pdfFrame');
+                    iframe.contentWindow.focus();
+                    iframe.contentWindow.print();
+                  }
+                  window.onload = function() {
+                    var iframe = document.getElementById('pdfFrame');
+                    iframe.onload = function() {
+                      setTimeout(printAndClose, 300);
+                    };
+                    window.onafterprint = function() {
+                      setTimeout(function() { window.close(); }, 300);
+                    };
+                  };
+                </script>
+              </head>
+              <body style="margin:0">
+                <iframe id="pdfFrame" src="${url}" type="application/pdf" style="width:100vw;height:100vh;border:none;"></iframe>
+              </body>
+            </html>
+          `);
+          printWindow.document.close();
+        }
+      });
+  };
 
   // Telefon numarası değişikliğini sadece rakam olarak kabul eden fonksiyon
   const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -226,7 +281,17 @@ export default function Home() {
           {/* Sağ Taraf - Kullanıcı Kartı */}
           <div className="w-full lg:w-2/3">
             {user ? (
-              <UserCard user={user} />
+              <div className="space-y-4">
+                <UserCard user={user} />
+                <div className="flex justify-end gap-2">
+                  <button
+                    onClick={handlePrintPDF}
+                    className="tetz-button bg-[#004a99] hover:bg-[#003d7a]"
+                  >
+                    Yazdır
+                  </button>
+                </div>
+              </div>
             ) : searched && !loading ? (
               <div className="bg-white rounded-xl shadow-md p-8 flex flex-col items-center justify-center text-gray-500">
                 <div className="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-red-50">
@@ -257,6 +322,11 @@ export default function Home() {
               </div>
             )}
           </div>
+        </div>
+
+        {/* Yazdırılacak Yaka Kartı */}
+        <div style={{ display: "none" }}>
+          {user && <BadgeCard ref={badgeRef} user={user} customStyle={{ width: "10cm", height: "15cm" }} />}
         </div>
 
         {/* Footer */}
