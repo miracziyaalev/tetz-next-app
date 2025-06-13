@@ -62,8 +62,8 @@ END:VCARD`;
                 <p className={styles.institution}>{user.institution}</p>
                 <div
                     style={{
-                        width: '4cm',
-                        height: '4cm',
+                        width: '3.5cm',
+                        height: '3.5cm',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -71,7 +71,7 @@ END:VCARD`;
                         borderRadius: '8px',
                     }}
                 >
-                    <QRCodeSVG value={vCard} width="4cm" height="4cm" level="H" includeMargin={true} />
+                    <QRCodeSVG value={vCard} width="3.5cm" height="3.5cm" level="H" includeMargin={true} />
                 </div>
             </div>
         </div>
