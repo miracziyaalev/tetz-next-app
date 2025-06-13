@@ -37,31 +37,41 @@ END:VCARD`;
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'flex-start',
+                justifyContent: 'center',
                 width: '10cm',
                 height: '15cm',
+                background: 'white',
+                padding: '5cm 0',
                 ...customStyle,
             }}
         >
-            <div className={styles.header} style={{ width: '100%' }}>
-                <h4>Türkiye Eğitim Teknolojileri Zirvesi</h4>
-            </div>
             <div
                 style={{
-                    flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '12px',
-                    width: '100%',
+                    width: '10cm',
+                    height: '5cm',
+                    background: 'white',
+                    gap: '8px',
                 }}
             >
                 <h2 className={styles.name}>{user.full_name}</h2>
-                <p className={styles.title}>{user.title}</p>
+                <p className={styles.title} style={{ marginBottom: '-8px' }}>{user.title}</p>
                 <p className={styles.institution}>{user.institution}</p>
-                <div style={{ marginTop: '16px' }}>
-                    <QRCodeSVG value={vCard} size={140} level={"H"} includeMargin={true} />
+                <div
+                    style={{
+                        width: '4cm',
+                        height: '4cm',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'white',
+                        borderRadius: '8px',
+                    }}
+                >
+                    <QRCodeSVG value={vCard} width="4cm" height="4cm" level="H" includeMargin={true} />
                 </div>
             </div>
         </div>
