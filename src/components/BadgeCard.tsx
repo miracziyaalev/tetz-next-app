@@ -38,10 +38,9 @@ END:VCARD`;
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '10cm',
+                width: '11cm',
                 height: '15cm',
                 background: 'white',
-                padding: '5cm 0',
                 ...customStyle,
             }}
         >
@@ -51,10 +50,10 @@ END:VCARD`;
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: '10cm',
-                    height: '5cm',
+                    width: '11cm',
                     background: 'white',
                     gap: '8px',
+                    marginTop: '-0.2cm',
                 }}
             >
                 <h2 className={styles.name}>{user.full_name}</h2>
