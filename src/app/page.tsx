@@ -32,14 +32,12 @@ export default function Home() {
   const [fullName, setFullName] = useState("");
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
-  const [isPrinting, setIsPrinting] = useState(false);
   const [error, setError] = useState("");
   const [searched, setSearched] = useState(false);
   const badgeRef = useRef<HTMLDivElement>(null);
 
   const handlePrintPDF = async () => {
     if (!badgeRef.current) return;
-    setIsPrinting(true);
     try {
       // @ts-expect-error: html2pdf.js için tip bulunamadı
       const html2pdf = (await import('html2pdf.js')).default;
@@ -93,8 +91,6 @@ export default function Home() {
     } catch (error) {
       console.error('Yazdırma hatası:', error);
       setError('Yazdırma sırasında bir hata oluştu. Lütfen tekrar deneyin.');
-    } finally {
-      setIsPrinting(false);
     }
   };
 
