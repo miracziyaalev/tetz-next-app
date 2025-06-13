@@ -41,6 +41,10 @@ END:VCARD`;
                 width: '11cm',
                 height: '15cm',
                 background: 'white',
+                overflow: 'hidden',
+                border: 'none',
+                boxShadow: 'none',
+                paddingLeft: '1cm',
                 ...customStyle,
             }}
         >
@@ -54,6 +58,8 @@ END:VCARD`;
                     background: 'white',
                     gap: '8px',
                     marginTop: '-0.2cm',
+                    border: 'none',
+                    overflow: 'hidden',
                 }}
             >
                 <h2 className={styles.name}>{user.full_name}</h2>

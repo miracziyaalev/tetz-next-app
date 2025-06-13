@@ -45,8 +45,8 @@ export default function Home() {
         margin: 0,
         filename: `${user?.full_name}.pdf`,
         image: { type: "jpeg", quality: 1.0 },
-        html2canvas: { scale: 4 },
-        jsPDF: { unit: "cm", format: [10, 15], orientation: "portrait" },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: "cm", format: [11, 15], orientation: "portrait" },
       };
       html2pdf()
         .set(opt)
