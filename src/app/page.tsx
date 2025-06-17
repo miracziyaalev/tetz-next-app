@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import UserCard from "../components/UserCard";
 import BadgeCard from "../components/BadgeCard";
 
@@ -36,6 +36,62 @@ export default function Home() {
   const [error, setError] = useState("");
   const [searched, setSearched] = useState(false);
   const badgeRef = useRef<HTMLDivElement>(null);
+  const qrCodeTextareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Sayfa yüklendiğinde QR kod alanına otomatik focus
+  useEffect(() => {
+    if (searchType === "qrCode" && qrCodeTextareaRef.current) {
+      qrCodeTextareaRef.current.focus();
+    }
+  }, [searchType]);
+
+  // QR kod değiştiğinde otomatik arama yap
+  useEffect(() => {
+    if (searchType === "qrCode" && qrCode.trim()) {
+      // QR kod içeriği varsa 1.5 saniye bekleyip otomatik arama yap
+      const timeoutId = setTimeout(() => {
+        handleAutoSearch();
+      }, 500);
+
+      // Cleanup: yeni değişiklik olduğunda önceki timeout'u iptal et
+      return () => clearTimeout(timeoutId);
+    }
+  }, [qrCode, searchType]);
+
+  // Otomatik arama fonksiyonu
+  const handleAutoSearch = async () => {
+    if (!qrCode.trim() || loading) return;
+
+    setLoading(true);
+    setError("");
+    setUser(null);
+    setSearched(true);
+
+    try {
+      console.log(`Otomatik API isteği: /api/users?qrCode=${encodeURIComponent(qrCode)}`);
+
+      const response = await fetch(`/api/users?qrCode=${encodeURIComponent(qrCode)}`);
+      const data = await response.json();
+
+      console.log("Otomatik API yanıtı:", data);
+
+      if (data.success === true && data.user) {
+        if (typeof data.user === 'object' && Object.keys(data.user).length > 0) {
+          console.log("Kullanıcı verisi UserCard'a aktarılıyor:", data.user);
+          setUser(data.user);
+        } else {
+          setError("Kullanıcı bilgileri eksik veya hatalı");
+        }
+      } else {
+        setError(data.message || "Kullanıcı bulunamadı. Lütfen bilgileri kontrol edip tekrar deneyin.");
+      }
+    } catch (err) {
+      console.error("Otomatik API hatası:", err);
+      setError("Bir hata oluştu. Lütfen tekrar deneyin.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handlePrintPDF = async () => {
     if (!badgeRef.current) return;
@@ -237,6 +293,7 @@ export default function Home() {
                 <div className="flex flex-col gap-3">
                   {searchType === "qrCode" && (
                     <textarea
+                      ref={qrCodeTextareaRef}
                       value={qrCode}
                       onChange={(e) => setQrCode(e.target.value)}
                       placeholder="QR kod içeriğini buraya yapıştırın (vCard formatı desteklenir)"

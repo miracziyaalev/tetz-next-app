@@ -57,7 +57,7 @@ END:VCARD`;
                     width: '11cm',
                     background: 'white',
                     gap: '10px',
-                    marginTop: '-0.2cm',
+                    marginTop: '-0.4cm',
                     border: 'none',
                     overflow: 'hidden',
                 }}
