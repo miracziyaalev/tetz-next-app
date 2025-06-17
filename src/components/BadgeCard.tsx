@@ -56,7 +56,7 @@ END:VCARD`;
                     justifyContent: 'center',
                     width: '11cm',
                     background: 'white',
-                    gap: '8px',
+                    gap: '10px',
                     marginTop: '-0.2cm',
                     border: 'none',
                     overflow: 'hidden',

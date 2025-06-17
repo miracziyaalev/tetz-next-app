@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "yrdzcrunsaahbyalnryr.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "tetz-images.kaat.digital",
+      },
     ],
   },
 };
