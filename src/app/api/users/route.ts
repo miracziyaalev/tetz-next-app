@@ -75,11 +75,14 @@ export async function GET(request: NextRequest) {
         let finalPhone = "";
         let finalEmail = "";
         let searchType = "";
+        let fallbackEmail = ""; // Fallback için email'i sakla
 
         // Önce parametre olarak gelen telefon/email'i kontrol et
         if (phoneNumber) {
             finalPhone = phoneNumber;
             searchType = "parametre telefon";
+            // Fallback için email'i sakla
+            if (extractedContact.email) fallbackEmail = extractedContact.email;
         } else if (email) {
             finalEmail = email;
             searchType = "parametre email";
@@ -87,6 +90,8 @@ export async function GET(request: NextRequest) {
             // QR kod içeriğinden telefon çıkarıldıysa onu kullan
             finalPhone = extractedContact.phone;
             searchType = "QR telefon";
+            // Fallback için email'i sakla
+            if (extractedContact.email) fallbackEmail = extractedContact.email;
         } else if (extractedContact.email) {
             // QR kod içeriğinden email çıkarıldıysa onu kullan
             finalEmail = extractedContact.email;
@@ -97,18 +102,9 @@ export async function GET(request: NextRequest) {
         console.log("Arama tipi:", searchType);
         console.log("Kullanılacak telefon:", finalPhone);
         console.log("Kullanılacak email:", finalEmail);
+        console.log("Fallback email:", fallbackEmail);
         console.log("QR kod içeriğinden çıkarılan:", extractedContact);
         console.log("Parametreler:", { phoneNumber, email, fullName, qrCode });
-
-        const requestBody = {
-            "p_active_qr_code": "",
-            "p_phone_number": finalPhone,
-            "p_email": finalEmail,
-            "p_full_name": fullName || "",
-            "p_lang": "tr"
-        };
-
-        console.log("Supabase'e gönderilecek istek:", JSON.stringify(requestBody, null, 2));
 
         // Hiçbir arama kriteri bulunamadıysa hata döndür
         if (!finalPhone && !finalEmail && !fullName) {
@@ -122,69 +118,73 @@ export async function GET(request: NextRequest) {
             );
         }
 
-        // Supabase API çağrısı yapılıyor
-        const response = await fetch("https://yrdzcrunsaahbyalnryr.supabase.co/rest/v1/rpc/find_user_by_criteria", {
-            method: "POST",
-            headers: {
-                "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyZHpjcnVuc2FhaGJ5YWxucnlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY3Nzk4MDYsImV4cCI6MjA2MjM1NTgwNn0.0fNVNUZvWkoqYcOr-i0sDRKW0FY_nLI2EczATyYIZ-c",
-                "Content-Type": "application/json",
-                "Prefer": "return=representation"
-            },
-            body: JSON.stringify(requestBody)
-        });
+        // Supabase API çağrısı yapan fonksiyon
+        async function searchUser(phone: string, email: string) {
+            const requestBody = {
+                "p_active_qr_code": "",
+                "p_phone_number": phone,
+                "p_email": email,
+                "p_full_name": fullName || "",
+                "p_lang": "tr"
+            };
 
-        console.log("Supabase API yanıt durumu:", response.status);
+            console.log("Supabase'e gönderilecek istek:", JSON.stringify(requestBody, null, 2));
 
-        // Yanıt başlıklarını logla
-        const headers: Record<string, string> = {};
-        response.headers.forEach((value, key) => {
-            headers[key] = value;
-        });
-        console.log("Yanıt başlıkları:", headers);
+            const response = await fetch("https://yrdzcrunsaahbyalnryr.supabase.co/rest/v1/rpc/find_user_by_criteria", {
+                method: "POST",
+                headers: {
+                    "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyZHpjcnVuc2FhaGJ5YWxucnlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY3Nzk4MDYsImV4cCI6MjA2MjM1NTgwNn0.0fNVNUZvWkoqYcOr-i0sDRKW0FY_nLI2EczATyYIZ-c",
+                    "Content-Type": "application/json",
+                    "Prefer": "return=representation"
+                },
+                body: JSON.stringify(requestBody)
+            });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("Supabase API hata yanıtı:", errorText);
+            console.log("Supabase API yanıt durumu:", response.status);
 
-            let errorData;
-            try {
-                errorData = JSON.parse(errorText);
-            } catch {
-                errorData = { error: errorText };
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Supabase API hata yanıtı:", errorText);
+                return null;
             }
 
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "Kullanıcı bilgileri alınırken bir hata oluştu",
-                    error: errorData
-                },
-                { status: response.status }
-            );
+            const responseText = await response.text();
+            console.log("Supabase'den gelen ham yanıt:", responseText);
+
+            try {
+                const userData = JSON.parse(responseText);
+                console.log("Supabase'den gelen işlenmiş veri:", userData);
+
+                // Kullanıcı bulunamadıysa veya boş veri döndüyse
+                if (!userData || (typeof userData === 'object' && Object.keys(userData).length === 0)) {
+                    console.log("Kullanıcı bulunamadı veya boş veri döndü");
+                    return null;
+                }
+
+                // Başarısız yanıt kontrolü - success: false ise
+                if (userData.success === false) {
+                    console.log("API yanıtı başarısız:", userData.message);
+                    return null;
+                }
+
+                return userData;
+            } catch (error) {
+                console.error("JSON parse hatası:", error);
+                return null;
+            }
         }
 
-        const responseText = await response.text();
-        console.log("Supabase'den gelen ham yanıt:", responseText);
+        // İlk arama - telefon veya email ile
+        let userData = await searchUser(finalPhone, finalEmail);
 
-        let userData;
-        try {
-            userData = JSON.parse(responseText);
-            console.log("Supabase'den gelen işlenmiş veri:", userData);
-        } catch (error) {
-            console.error("JSON parse hatası:", error);
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "API yanıtı işlenirken bir hata oluştu",
-                    error: String(error)
-                },
-                { status: 500 }
-            );
+        // Eğer telefon ile arama yapıldıysa ve kullanıcı bulunamadıysa, email ile de dene
+        if (!userData && finalPhone && fallbackEmail) {
+            console.log("Telefon ile kullanıcı bulunamadı, email ile deneniyor...");
+            userData = await searchUser("", fallbackEmail);
         }
 
-        // Kullanıcı bulunamadıysa veya boş veri döndüyse
-        if (!userData || (typeof userData === 'object' && Object.keys(userData).length === 0)) {
-            console.log("Kullanıcı bulunamadı veya boş veri döndü");
+        // Sonuç kontrolü
+        if (!userData) {
             return NextResponse.json(
                 {
                     success: false,
@@ -194,19 +194,7 @@ export async function GET(request: NextRequest) {
             );
         }
 
-        // Başarısız yanıt kontrolü - success: false ise
-        if (userData.success === false) {
-            console.log("API yanıtı başarısız:", userData.message);
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: userData.message || "Kullanıcı bulunamadı",
-                },
-                { status: 404 }
-            );
-        }
-
-        // API yanıtının yapısını kontrol et
+        // Başarılı yanıt
         if (userData.success && userData.user) {
             console.log("API yanıtı başarılı, kullanıcı verisi döndürülüyor");
             return NextResponse.json(userData, { status: 200 });
