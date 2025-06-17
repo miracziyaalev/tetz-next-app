@@ -33,6 +33,7 @@ export default function Home() {
   const [fullName, setFullName] = useState("");
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
+  const [printLoading, setPrintLoading] = useState(false);
   const [error, setError] = useState("");
   const [searched, setSearched] = useState(false);
   const badgeRef = useRef<HTMLDivElement>(null);
@@ -95,6 +96,10 @@ export default function Home() {
 
   const handlePrintPDF = async () => {
     if (!badgeRef.current) return;
+
+    setPrintLoading(true);
+    setError("");
+
     try {
       // @ts-expect-error: html2pdf.js için tip bulunamadı
       const html2pdf = (await import('html2pdf.js')).default;
@@ -105,6 +110,7 @@ export default function Home() {
         html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: "cm", format: [11, 15], orientation: "portrait" },
       };
+
       html2pdf()
         .set(opt)
         .from(badgeRef.current)
@@ -114,39 +120,78 @@ export default function Home() {
         .then(pdf => {
           const blob = pdf.output('blob');
           const url = URL.createObjectURL(blob);
-          const printWindow = window.open('', '_blank');
-          if (printWindow) {
-            printWindow.document.write(`
-              <html>
-                <head>
-                  <title>Yazdır</title>
-                  <script>
-                    function printAndClose() {
-                      var iframe = document.getElementById('pdfFrame');
-                      iframe.contentWindow.focus();
-                      iframe.contentWindow.print();
-                    }
-                    window.onload = function() {
-                      var iframe = document.getElementById('pdfFrame');
-                      iframe.onload = function() {
-                        setTimeout(printAndClose, 300);
-                      };
-                      window.onafterprint = function() {
-                        setTimeout(function() { window.close(); }, 300);
-                      };
-                    };
-                  </script>
-                </head>
-                <body style="margin:0">
-                  <iframe id="pdfFrame" src="${url}" type="application/pdf" style="width:100vw;height:100vh;border:none;"></iframe>
-                </body>
-              </html>
-            `);
-            printWindow.document.close();
-          }
+
+          // PDF'i yeni bir iframe'de aç ve doğrudan yazdır
+          const printFrame = document.createElement('iframe');
+          printFrame.style.position = 'absolute';
+          printFrame.style.left = '-9999px';
+          printFrame.style.top = '-9999px';
+          printFrame.style.width = '0';
+          printFrame.style.height = '0';
+          printFrame.src = url;
+
+          document.body.appendChild(printFrame);
+
+          printFrame.onload = () => {
+            try {
+              // iframe yüklendiğinde yazdırma dialogunu aç
+              printFrame.contentWindow?.print();
+
+              // Loading'i biraz daha uzun tut (kullanıcının görebilmesi için)
+              setTimeout(() => {
+                setPrintLoading(false);
+              }, 1500); // 1.5 saniye daha bekle
+
+              // Yazdırma işlemi tamamlandıktan sonra iframe'i kaldır
+              // Daha uzun süre bekle ve yazdırma olaylarını dinle
+              const cleanup = () => {
+                setTimeout(() => {
+                  if (document.body.contains(printFrame)) {
+                    document.body.removeChild(printFrame);
+                  }
+                  URL.revokeObjectURL(url);
+                }, 5000); // 5 saniye bekle
+              };
+
+              // Yazdırma işlemi tamamlandığında temizlik yap
+              if (printFrame.contentWindow) {
+                printFrame.contentWindow.onafterprint = cleanup;
+                printFrame.contentWindow.onbeforeprint = () => {
+                  console.log('Yazdırma başlıyor...');
+                };
+              }
+
+              // Fallback: 10 saniye sonra otomatik temizlik
+              setTimeout(cleanup, 10000);
+
+            } catch (error) {
+              console.error('Yazdırma hatası:', error);
+              setPrintLoading(false);
+              // Hata durumunda alternatif yöntem
+              window.open(url, '_blank');
+              setTimeout(() => {
+                if (document.body.contains(printFrame)) {
+                  document.body.removeChild(printFrame);
+                }
+              }, 2000);
+            }
+          };
+
+          // Hata durumunda fallback
+          printFrame.onerror = () => {
+            console.error('PDF yükleme hatası, alternatif yöntem kullanılıyor');
+            setPrintLoading(false);
+            window.open(url, '_blank');
+            setTimeout(() => {
+              if (document.body.contains(printFrame)) {
+                document.body.removeChild(printFrame);
+              }
+            }, 2000);
+          };
         });
     } catch (error) {
       console.error('Yazdırma hatası:', error);
+      setPrintLoading(false);
       setError('Yazdırma sırasında bir hata oluştu. Lütfen tekrar deneyin.');
     }
   };
@@ -357,7 +402,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-md p-5 text-sm text-gray-600">
               <p className="font-medium text-[#004b96] mb-2">Yardım</p>
               <ul className="list-disc pl-5 space-y-1">
-                <li>QR kod ile arama yapmak için QR kodun içeriğini kopyalayıp yapıştırın</li>
+
                 <li>vCard formatı desteklenir (BEGIN:VCARD...END:VCARD)</li>
                 <li>Telefon numarası aramak için {`"905XXXXXXXXX"`} formatını kullanın</li>
                 <li>İsim araması büyük/küçük harfe duyarlı değildir</li>
@@ -370,7 +415,7 @@ export default function Home() {
           <div className="w-full lg:w-2/3">
             {user ? (
               <div className="space-y-4">
-                <UserCard user={user} onPrint={handlePrintPDF} />
+                <UserCard user={user} onPrint={handlePrintPDF} printLoading={printLoading} />
               </div>
             ) : searched && !loading ? (
               <div className="bg-white rounded-xl shadow-md p-8 flex flex-col items-center justify-center text-gray-500">
