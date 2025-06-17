@@ -2,29 +2,31 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
+    const userId = searchParams.get("userId");
     const phoneNumber = searchParams.get("phone");
     const email = searchParams.get("email");
     const fullName = searchParams.get("fullName");
 
-    console.log("API isteği alındı - Arama parametreleri:", { phoneNumber, email, fullName });
+    console.log("API isteği alındı - Arama parametreleri:", { userId, phoneNumber, email, fullName });
 
     // En az bir arama kriteri olmalı
-    if (!phoneNumber && !email && !fullName) {
+    if (!userId && !phoneNumber && !email && !fullName) {
         return NextResponse.json(
             {
                 success: false,
-                message: "En az bir arama kriteri belirtilmelidir (telefon, email veya isim)",
+                message: "En az bir arama kriteri belirtilmelidir (userId, telefon, email veya isim)",
             },
             { status: 400 }
         );
     }
 
     // Sadece bir arama kriteri dolu olabilir
-    if ((phoneNumber && email) || (phoneNumber && fullName) || (email && fullName)) {
+    const filledCriteria = [userId, phoneNumber, email, fullName].filter(Boolean);
+    if (filledCriteria.length > 1) {
         return NextResponse.json(
             {
                 success: false,
-                message: "Sadece bir arama kriteri kullanılabilir (telefon, email veya isim)",
+                message: "Sadece bir arama kriteri kullanılabilir (userId, telefon, email veya isim)",
             },
             { status: 400 }
         );
@@ -32,6 +34,7 @@ export async function GET(request: NextRequest) {
 
     try {
         const requestBody = {
+            "p_user_id": userId || "",
             "p_phone_number": phoneNumber || "",
             "p_email": email || "",
             "p_full_name": fullName || "",

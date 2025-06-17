@@ -23,10 +23,11 @@ interface User {
   user_province: null;
 }
 
-type SearchType = "phone" | "email" | "fullName";
+type SearchType = "userId" | "phone" | "email" | "fullName";
 
 export default function Home() {
-  const [searchType, setSearchType] = useState<SearchType>("phone");
+  const [searchType, setSearchType] = useState<SearchType>("userId");
+  const [userId, setUserId] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
@@ -112,7 +113,10 @@ export default function Home() {
     let searchParam = "";
     let searchValue = "";
 
-    if (searchType === "phone") {
+    if (searchType === "userId") {
+      searchParam = "userId";
+      searchValue = userId;
+    } else if (searchType === "phone") {
       searchParam = "phone";
       searchValue = phoneNumber;
     } else if (searchType === "email") {
@@ -189,6 +193,16 @@ export default function Home() {
               <div className="flex flex-wrap gap-2 mb-4">
                 <button
                   type="button"
+                  onClick={() => handleSearchTypeChange("userId")}
+                  className={`px-3 py-1.5 text-sm rounded-md ${searchType === "userId"
+                    ? "bg-[#0066cc] text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
+                >
+                  User ID
+                </button>
+                <button
+                  type="button"
                   onClick={() => handleSearchTypeChange("phone")}
                   className={`px-3 py-1.5 text-sm rounded-md ${searchType === "phone"
                     ? "bg-[#0066cc] text-white"
@@ -221,6 +235,17 @@ export default function Home() {
 
               <form onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-3">
+                  {searchType === "userId" && (
+                    <input
+                      type="text"
+                      value={userId}
+                      onChange={(e) => setUserId(e.target.value)}
+                      placeholder="User ID (örn: f744a94c-87a9-47c8-b91f-a6c84a951d8e)"
+                      className="tetz-input"
+                      required
+                    />
+                  )}
+
                   {searchType === "phone" && (
                     <input
                       type="tel"
@@ -276,6 +301,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-md p-5 text-sm text-gray-600">
               <p className="font-medium text-[#004b96] mb-2">Yardım</p>
               <ul className="list-disc pl-5 space-y-1">
+                <li>User ID ile arama yapmak için tam UUID formatını kullanın</li>
                 <li>Telefon numarası aramak için {`"905XXXXXXXXX"`} formatını kullanın</li>
                 <li>İsim araması büyük/küçük harfe duyarlı değildir</li>
                 <li>E-posta adresi tam eşleşme gerektirir</li>
