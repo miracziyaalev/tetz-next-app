@@ -45,7 +45,7 @@ const View: React.FC<ViewProps> = ({
             </div>
 
             {/* Admin Login Button - Sağ Üst */}
-            <div className="absolute top-8 right-8 z-10">
+            <div className="absolute top-8 right-8 z-50 pointer-events-auto p-2 rounded">
                 <AdminLoginButton onAdminLogin={onAdminLogin} />
             </div>
 
