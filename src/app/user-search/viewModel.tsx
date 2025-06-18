@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import UserSearchView from "./view";
 
 export interface User {
@@ -46,18 +46,8 @@ const UserSearchViewModel = () => {
         }
     }, [searchType]);
 
-    // QR kod değiştiğinde otomatik arama yap
-    useEffect(() => {
-        if (searchType === "qrCode" && qrCode.trim()) {
-            const timeoutId = setTimeout(() => {
-                handleAutoSearch();
-            }, 500);
-            return () => clearTimeout(timeoutId);
-        }
-    }, [qrCode, searchType]);
-
     // Otomatik arama fonksiyonu
-    const handleAutoSearch = async () => {
+    const handleAutoSearch = useCallback(async () => {
         if (!qrCode.trim() || loading) return;
         setLoading(true);
         setError("");
@@ -80,7 +70,16 @@ const UserSearchViewModel = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [qrCode, loading]);
+
+    useEffect(() => {
+        if (searchType === "qrCode" && qrCode.trim()) {
+            const timeoutId = setTimeout(() => {
+                handleAutoSearch();
+            }, 500);
+            return () => clearTimeout(timeoutId);
+        }
+    }, [qrCode, searchType, handleAutoSearch]);
 
     // PDF yazdırma fonksiyonu
     const handlePrintPDF = async () => {

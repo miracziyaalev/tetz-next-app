@@ -29,7 +29,7 @@ const ViewModel = () => {
         inactiveUsers: 0
     });
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [error] = useState<string | null>(null);
 
     useEffect(() => {
         // TODO: API'den kullanıcı listesini çek

@@ -45,7 +45,7 @@ const ViewModel = () => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const handleGeneralChange = (field: keyof SettingsData['general'], value: any) => {
+    const handleGeneralChange = (field: keyof SettingsData['general'], value: string | boolean) => {
         setData(prev => ({
             ...prev,
             general: {
@@ -65,7 +65,7 @@ const ViewModel = () => {
         }));
     };
 
-    const handleSecurityChange = (field: keyof SettingsData['security'], value: any) => {
+    const handleSecurityChange = (field: keyof SettingsData['security'], value: boolean | number | string) => {
         setData(prev => ({
             ...prev,
             security: {
@@ -84,7 +84,7 @@ const ViewModel = () => {
             // TODO: API'ye ayarları kaydet
             await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
             setSuccess(true);
-        } catch (err) {
+        } catch {
             setError('Ayarlar kaydedilirken bir hata oluştu');
         } finally {
             setLoading(false);

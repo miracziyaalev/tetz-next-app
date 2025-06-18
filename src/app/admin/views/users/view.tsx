@@ -1,5 +1,5 @@
 import React from "react";
-import { UsersData, User } from "./viewModel";
+import { UsersData } from "./viewModel";
 
 interface ViewProps {
     data: UsersData;

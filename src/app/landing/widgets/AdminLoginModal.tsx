@@ -54,9 +54,10 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ onClose }) => {
                 setError('Giriş başarısız');
             }
 
-        } catch (err: any) {
+        } catch (err: Error | unknown) {
             console.error('Login error:', err);
-            setError(err.message || 'Giriş yapılırken bir hata oluştu');
+            const errorMessage = err instanceof Error ? err.message : 'Giriş yapılırken bir hata oluştu';
+            setError(errorMessage);
         } finally {
             setIsLoading(false);
         }
