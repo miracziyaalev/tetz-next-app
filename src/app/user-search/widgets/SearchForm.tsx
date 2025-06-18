@@ -22,6 +22,7 @@ interface SearchFormProps {
     user: User | null;
     onPrint?: () => void;
     printLoading?: boolean;
+    variant?: "dark" | "light";
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({
@@ -44,6 +45,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
     user,
     onPrint,
     printLoading,
+    variant = "dark",
 }) => {
     const [showHelp, setShowHelp] = useState(false);
 
@@ -78,10 +80,42 @@ const SearchForm: React.FC<SearchFormProps> = ({
         setShowHelp(!showHelp);
     };
 
+    // Tema stilleri
+    const isDark = variant === "dark";
+    const containerClass = isDark
+        ? "bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/50"
+        : "bg-white shadow-lg border border-gray-200";
+    const textClass = isDark ? "text-white" : "text-gray-800";
+    const textSecondaryClass = isDark ? "text-white/70" : "text-gray-600";
+    const inputClass = isDark
+        ? "bg-white/10 border border-white/20 text-white placeholder-white/50 focus:border-white/40"
+        : "bg-gray-50 border border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500";
+    const buttonClass = isDark
+        ? "bg-white/10 hover:bg-white/20 text-white/80 border border-white/20"
+        : "bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-300";
+    const buttonPrimaryClass = isDark
+        ? "bg-white/20 hover:bg-white/30 text-white border border-white/30"
+        : "bg-blue-600 hover:bg-blue-700 text-white border border-blue-600";
+    const tabActiveClass = isDark
+        ? "bg-white/20 text-white shadow-lg border border-white/30"
+        : "bg-blue-100 text-blue-700 shadow-lg border border-blue-200";
+    const tabInactiveClass = isDark
+        ? "text-white/70 hover:bg-white/10 hover:text-white/90"
+        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900";
+    const tabContainerClass = isDark
+        ? "bg-white/5 border border-white/10"
+        : "bg-gray-100 border border-gray-200";
+    const errorClass = isDark
+        ? "text-red-200 bg-red-500/20 border border-red-400/30"
+        : "text-red-700 bg-red-50 border border-red-200";
+    const helpClass = isDark
+        ? "bg-gradient-to-br from-white/30 to-white/20 backdrop-blur-md border border-white/30 text-white"
+        : "bg-white shadow-xl border border-gray-200 text-gray-800";
+
     return (
         <div className="flex justify-center w-full pb-8">
             <div
-                className={`bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/50 p-6 transition-all duration-700 ease-in-out ${user ? 'w-full' : 'w-[400px]'}`}
+                className={`${containerClass} rounded-3xl shadow-2xl p-6 transition-all duration-700 ease-in-out ${user ? 'w-full' : 'w-[400px]'}`}
             >
                 <div className={`flex transition-all duration-700 ease-in-out ${user ? 'gap-8 opacity-100' : 'gap-0 opacity-100'
                     }`}>
@@ -93,14 +127,14 @@ const SearchForm: React.FC<SearchFormProps> = ({
                         {/* Arama Formu */}
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <h2 className="text-lg font-semibold text-white">
+                                <h2 className={`text-lg font-semibold ${textClass}`}>
                                     Katılımcı Arama
                                 </h2>
                                 <div className="relative">
                                     <button
                                         type="button"
                                         onClick={handleHelpClick}
-                                        className="flex items-center justify-center w-8 h-8 bg-white/10 hover:bg-white/20 text-white/80 rounded-lg transition-all duration-200 border border-white/20"
+                                        className={`flex items-center justify-center w-8 h-8 ${buttonClass} rounded-lg transition-all duration-200`}
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <circle cx="12" cy="12" r="10"></circle>
@@ -112,11 +146,11 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                     {/* Help Popup */}
                                     {showHelp && (
                                         <div
-                                            className="absolute z-50 top-full right-0 mt-2 bg-gradient-to-br from-white/30 to-white/20 backdrop-blur-md rounded-xl shadow-2xl border border-white/30 p-4 text-sm text-white w-64"
+                                            className={`absolute z-50 top-full right-0 mt-2 ${helpClass} rounded-xl shadow-2xl p-4 text-sm w-64`}
                                         >
                                             <div className="space-y-2">
-                                                <p className="font-medium text-white">Arama Yardımı</p>
-                                                <ul className="space-y-1 text-xs text-white">
+                                                <p className={`font-medium ${textClass}`}>Arama Yardımı</p>
+                                                <ul className={`space-y-1 text-xs ${textSecondaryClass}`}>
                                                     <li>• <strong>QR Kod:</strong> vCard formatı desteklenir</li>
                                                     <li>• <strong>Telefon:</strong> 905XXXXXXXXX formatını kullanın</li>
                                                     <li>• <strong>İsim:</strong> Büyük/küçük harfe duyarlı değildir</li>
@@ -125,7 +159,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                             </div>
                                             <button
                                                 onClick={() => setShowHelp(false)}
-                                                className="absolute top-2 right-2 text-white hover:text-white/80 transition-colors"
+                                                className={`absolute top-2 right-2 ${textSecondaryClass} hover:opacity-80 transition-colors`}
                                             >
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                     <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -134,7 +168,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                             </button>
                                             {/* Üçgen İşaretçi */}
                                             <div
-                                                className="absolute -top-2 right-3 w-4 h-4 bg-gradient-to-br from-white/30 to-white/20 border-l border-t border-white/30 transform rotate-45"
+                                                className={`absolute -top-2 right-3 w-4 h-4 ${isDark ? 'bg-gradient-to-br from-white/30 to-white/20 border-l border-t border-white/30' : 'bg-white border-l border-t border-gray-200'} transform rotate-45`}
                                             />
                                         </div>
                                     )}
@@ -142,13 +176,13 @@ const SearchForm: React.FC<SearchFormProps> = ({
                             </div>
 
                             {/* Arama Türü Seçimi */}
-                            <div className="flex flex-wrap gap-2 bg-white/5 p-1 rounded-lg border border-white/10">
+                            <div className={`flex flex-wrap gap-2 ${tabContainerClass} p-1 rounded-lg`}>
                                 <button
                                     type="button"
                                     onClick={() => setSearchType("qrCode")}
                                     className={`flex-1 px-3 py-2 text-sm rounded-md transition-all duration-200 ${searchType === "qrCode"
-                                        ? "bg-white/20 text-white shadow-lg border border-white/30"
-                                        : "text-white/70 hover:bg-white/10 hover:text-white/90"
+                                        ? tabActiveClass
+                                        : tabInactiveClass
                                         }`}
                                 >
                                     QR Kod
@@ -157,8 +191,8 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                     type="button"
                                     onClick={() => setSearchType("phone")}
                                     className={`flex-1 px-3 py-2 text-sm rounded-md transition-all duration-200 ${searchType === "phone"
-                                        ? "bg-white/20 text-white shadow-lg border border-white/30"
-                                        : "text-white/70 hover:bg-white/10 hover:text-white/90"
+                                        ? tabActiveClass
+                                        : tabInactiveClass
                                         }`}
                                 >
                                     Telefon
@@ -167,8 +201,8 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                     type="button"
                                     onClick={() => setSearchType("email")}
                                     className={`flex-1 px-3 py-2 text-sm rounded-md transition-all duration-200 ${searchType === "email"
-                                        ? "bg-white/20 text-white shadow-lg border border-white/30"
-                                        : "text-white/70 hover:bg-white/10 hover:text-white/90"
+                                        ? tabActiveClass
+                                        : tabInactiveClass
                                         }`}
                                 >
                                     E-posta
@@ -177,8 +211,8 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                     type="button"
                                     onClick={() => setSearchType("fullName")}
                                     className={`flex-1 px-3 py-2 text-sm rounded-md transition-all duration-200 ${searchType === "fullName"
-                                        ? "bg-white/20 text-white shadow-lg border border-white/30"
-                                        : "text-white/70 hover:bg-white/10 hover:text-white/90"
+                                        ? tabActiveClass
+                                        : tabInactiveClass
                                         }`}
                                 >
                                     İsim
@@ -194,7 +228,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                                 value={qrCode}
                                                 onChange={(e) => setQrCode(e.target.value)}
                                                 placeholder="QR kod içeriğini buraya yapıştırın (vCard formatı desteklenir)"
-                                                className="w-full bg-white/10 border border-white/20 rounded-lg p-3 text-white placeholder-white/50 focus:outline-none focus:border-white/40 transition-all duration-200 resize-none min-h-[200px]"
+                                                className={`w-full ${inputClass} rounded-lg p-3 focus:outline-none transition-all duration-200 resize-none min-h-[200px]`}
                                                 required
                                             />
                                         </div>
@@ -210,7 +244,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                                 value={phoneNumber}
                                                 onChange={handlePhoneNumberChange}
                                                 placeholder="Telefon Numarası (örn: 905363603060)"
-                                                className="w-full bg-white/10 border border-white/20 rounded-lg p-3 text-white placeholder-white/50 focus:outline-none focus:border-white/40 transition-all duration-200"
+                                                className={`w-full ${inputClass} rounded-lg p-3 focus:outline-none transition-all duration-200`}
                                                 required
                                             />
                                         </div>
@@ -224,7 +258,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
                                                 placeholder="E-posta Adresi"
-                                                className="w-full bg-white/10 border border-white/20 rounded-lg p-3 text-white placeholder-white/50 focus:outline-none focus:border-white/40 transition-all duration-200"
+                                                className={`w-full ${inputClass} rounded-lg p-3 focus:outline-none transition-all duration-200`}
                                                 required
                                             />
                                         </div>
@@ -238,7 +272,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                                 value={fullName}
                                                 onChange={(e) => setFullName(e.target.value)}
                                                 placeholder="Ad Soyad"
-                                                className="w-full bg-white/10 border border-white/20 rounded-lg p-3 text-white placeholder-white/50 focus:outline-none focus:border-white/40 transition-all duration-200"
+                                                className={`w-full ${inputClass} rounded-lg p-3 focus:outline-none transition-all duration-200`}
                                                 required
                                             />
                                         </div>
@@ -251,7 +285,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                             type="button"
                                             onClick={handleRefresh}
                                             disabled={loading}
-                                            className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white/80 rounded-lg transition-all duration-200 border border-white/20 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                                            className={`flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 ${buttonClass} rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-sm`}
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                 <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
@@ -265,7 +299,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className="flex-1 flex items-center justify-center gap-1.5 px-6 py-2.5 bg-white/20 hover:bg-white/30 text-white font-medium rounded-lg transition-all duration-200 border border-white/30 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                                        className={`flex-1 flex items-center justify-center gap-1.5 px-6 py-2.5 ${buttonPrimaryClass} font-medium rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-sm`}
                                     >
                                         {loading ? (
                                             <span>...</span>
@@ -283,7 +317,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                             </form>
 
                             {error && (
-                                <div className="p-3 text-sm text-red-200 bg-red-500/20 rounded-md border border-red-400/30">
+                                <div className={`p-3 text-sm ${errorClass} rounded-md`}>
                                     {error}
                                 </div>
                             )}
@@ -301,7 +335,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                             visibility: user ? 'visible' : 'hidden'
                         }}
                     >
-                        {user && <UserCard user={user} onPrint={onPrint} printLoading={printLoading} />}
+                        {user && <UserCard user={user} onPrint={onPrint} printLoading={printLoading} variant={variant} />}
                     </div>
                 </div>
             </div>

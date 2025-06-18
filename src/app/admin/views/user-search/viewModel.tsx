@@ -24,7 +24,7 @@ export interface User {
 
 export type SearchType = "qrCode" | "phone" | "email" | "fullName";
 
-const UserSearchViewModel = () => {
+const AdminUserSearchViewModel = () => {
     // State yönetimi
     const [searchType, setSearchType] = useState<SearchType>("qrCode");
     const [qrCode, setQrCode] = useState("");
@@ -36,23 +36,8 @@ const UserSearchViewModel = () => {
     const [printLoading, setPrintLoading] = useState(false);
     const [error, setError] = useState("");
     const [searched, setSearched] = useState(false);
-    const [showAdminModal, setShowAdminModal] = useState(false);
     const badgeRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
     const qrCodeTextareaRef = useRef<HTMLTextAreaElement>(null) as React.RefObject<HTMLTextAreaElement>;
-
-    // Admin login fonksiyonları
-    const handleAdminLogin = () => {
-        setShowAdminModal(true);
-    };
-
-    const handleCloseAdminModal = () => {
-        setShowAdminModal(false);
-    };
-
-    // Welcome butonu fonksiyonu
-    const handleWelcomeClick = () => {
-        window.location.href = '/';
-    };
 
     // Sayfa yüklendiğinde QR kod alanına otomatik focus
     useEffect(() => {
@@ -270,12 +255,8 @@ const UserSearchViewModel = () => {
             handleSubmit={handleSubmit}
             handlePrintPDF={handlePrintPDF}
             handleRefresh={handleRefresh}
-            showAdminModal={showAdminModal}
-            onAdminLogin={handleAdminLogin}
-            onCloseAdminModal={handleCloseAdminModal}
-            onWelcomeClick={handleWelcomeClick}
         />
     );
 };
 
-export default UserSearchViewModel; 
+export default AdminUserSearchViewModel; 

@@ -1,20 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-// Supabase client oluştur
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-// Environment variables kontrolü
-if (!supabaseUrl || !supabaseServiceKey) {
-    console.error('Missing Supabase environment variables');
-    throw new Error('Supabase configuration is missing. Please check your environment variables.');
-}
-
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
 export async function POST(request: NextRequest) {
     try {
+        // Supabase client oluştur
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+        // Environment variables kontrolü
+        if (!supabaseUrl || !supabaseServiceKey) {
+            console.error('Missing Supabase environment variables');
+            return NextResponse.json(
+                { error: 'Server configuration error' },
+                { status: 500 }
+            );
+        }
+
+        const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
         const { email, password } = await request.json();
 
         // Email ve password validation

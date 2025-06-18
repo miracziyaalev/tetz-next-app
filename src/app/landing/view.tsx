@@ -23,19 +23,18 @@ const View: React.FC<ViewProps> = ({
     onCloseAdminModal
 }) => {
     return (
-        <div
-            className="h-screen w-screen overflow-hidden relative"
-            style={{ backgroundColor: data.backgroundColor }}
-        >
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10 pointer-events-none">
-                <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-                <div className="absolute top-1/4 right-0 w-64 h-64 bg-white rounded-full translate-x-1/2"></div>
-                <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-white rounded-full -translate-x-1/2 translate-y-1/2"></div>
-            </div>
+        <div className="h-screen w-screen overflow-hidden relative">
+            {/* Background Image */}
+            <Image
+                src="/yatayy.jpg"
+                alt="Background"
+                fill
+                className="object-cover"
+                priority
+            />
 
             {/* Logo */}
-            <div className="absolute top-8 left-8">
+            <div className="absolute top-8 left-8 z-10">
                 <Image
                     src={data.logoUrl}
                     alt="TETZ Logo"
@@ -51,7 +50,7 @@ const View: React.FC<ViewProps> = ({
             </div>
 
             {/* Main Content */}
-            <div className="relative h-full flex flex-col lg:flex-row items-center justify-between px-8 lg:px-16">
+            <div className="relative h-full flex flex-col lg:flex-row items-center justify-between px-8 lg:px-16 z-10">
                 {/* Left Side - Text Content */}
                 <div className="flex-1 w-full lg:w-1/2 flex flex-col items-center lg:items-start justify-center text-center lg:text-left">
                     <h2 className="text-2xl md:text-3xl text-white/80 font-light mb-4">
@@ -75,7 +74,7 @@ const View: React.FC<ViewProps> = ({
                 </div>
 
                 {/* Right Side - Phone and QR */}
-                <div className="flex-1 w-full lg:w-1/2 flex justify-center items-center relative mt-12 lg:mt-0">
+                <div className="flex-1 w-full lg:w-1/2 flex justify-start items-center relative mt-12 lg:mt-0 lg:pl-40">
                     <PhonePreview qrCodeUrl={data.qrCodeUrl} />
                 </div>
             </div>

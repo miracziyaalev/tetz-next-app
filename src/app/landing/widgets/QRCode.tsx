@@ -8,7 +8,7 @@ interface QRCodeProps {
 
 const QRCode: React.FC<QRCodeProps> = ({ qrCodeUrl }) => {
     return (
-        <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-5 rounded-3xl shadow-2xl border border-white/50 transform transition-all duration-300 hover:scale-105">
+        <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-5 rounded-3xl shadow-2xl border border-white/50 transform transition-all duration-300 hover:scale-105 ml-8">
             {/* Title Section */}
             <div className="text-center mb-4">
                 <h3 className="text-white/90 text-xl font-medium mb-2">

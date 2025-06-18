@@ -8,7 +8,7 @@ import OverviewViewModel from "./views/overview/viewModel";
 import CreateUserViewModel from "./views/create-user/viewModel";
 import UsersViewModel from "./views/users/viewModel";
 import SettingsViewModel from "./views/settings/viewModel";
-import UserSearchViewModel from "../user-search/viewModel";
+import UserSearchViewModel from "./views/user-search/viewModel";
 
 export interface AdminData {
     currentUser: {

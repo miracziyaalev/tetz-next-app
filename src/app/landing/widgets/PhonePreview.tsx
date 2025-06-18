@@ -26,7 +26,7 @@ const PhonePreview: React.FC<PhonePreviewProps> = ({ qrCodeUrl }) => {
                 </div>
 
                 {/* QR Code with Animation */}
-                <div className="absolute -right-24 top-1/3 animate-float">
+                <div className="absolute -right-36 top-1/4 animate-float">
                     <div className="transform transition-transform hover:scale-105">
                         <QRCode qrCodeUrl={qrCodeUrl} />
                     </div>

@@ -1,85 +1,71 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-// Environment variables kontrolü
-if (!supabaseUrl || !supabaseServiceKey) {
-    console.error('Missing Supabase environment variables');
-    throw new Error('Supabase configuration is missing. Please check your environment variables.');
-}
-
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
 export async function GET(request: NextRequest) {
     try {
-        const authHeader = request.headers.get('authorization');
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
+        // Environment variables kontrolü
+        if (!supabaseUrl || !supabaseServiceKey) {
+            console.error('Missing Supabase environment variables');
+            return NextResponse.json(
+                { error: 'Server configuration error' },
+                { status: 500 }
+            );
+        }
+
+        const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+        // Authorization header'dan token'ı al
+        const authHeader = request.headers.get('authorization');
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             return NextResponse.json(
-                { error: 'Token gereklidir' },
+                { error: 'Authorization token required' },
                 { status: 401 }
             );
         }
 
-        const token = authHeader.split(' ')[1];
+        const token = authHeader.substring(7);
 
         // Token'ı doğrula
         const { data: { user }, error } = await supabase.auth.getUser(token);
 
         if (error || !user) {
             return NextResponse.json(
-                { error: 'Geçersiz token' },
+                { error: 'Invalid token' },
                 { status: 401 }
             );
         }
 
-        // users tablosundan kullanıcı bilgilerini al
+        // Kullanıcı bilgilerini getir
         const { data: userData, error: userError } = await supabase
             .from('users')
             .select('*')
             .eq('email', user.email)
             .single();
 
-        if (userError || !userData) {
+        if (userError) {
             return NextResponse.json(
-                { error: 'Kullanıcı bilgileri bulunamadı' },
-                { status: 401 }
-            );
-        }
-
-        // Admin kontrolü
-        if (userData.role !== 'admin') {
-            return NextResponse.json(
-                { error: 'Admin yetkisi gerekli' },
-                { status: 403 }
+                { error: 'User not found' },
+                { status: 404 }
             );
         }
 
         return NextResponse.json({
             success: true,
-            session: {
-                access_token: token,
-                user: {
-                    id: user.id,
-                    email: user.email,
-                    name: userData.full_name || user.email,
-                    role: userData.role
-                }
-            },
             user: {
                 id: user.id,
                 email: user.email,
-                name: userData.full_name || user.email,
+                name: userData.full_name || userData.email,
                 role: userData.role
             }
         });
 
     } catch (error) {
-        console.error('Session check error:', error);
+        console.error('Session API error:', error);
         return NextResponse.json(
-            { error: 'Sunucu hatası oluştu' },
+            { error: 'Server error' },
             { status: 500 }
         );
     }
