@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { SearchType, User } from "../viewModel";
 import UserCard from "../../../components/UserCard";
 
@@ -46,6 +46,33 @@ const SearchForm: React.FC<SearchFormProps> = ({
     printLoading,
 }) => {
     const [showHelp, setShowHelp] = useState(false);
+
+    // Her field tipi için ref'ler
+    const phoneInputRef = useRef<HTMLInputElement>(null);
+    const emailInputRef = useRef<HTMLInputElement>(null);
+    const fullNameInputRef = useRef<HTMLInputElement>(null);
+
+    // searchType değiştiğinde ilgili field'a focus ol
+    useEffect(() => {
+        const focusTimeout = setTimeout(() => {
+            switch (searchType) {
+                case "qrCode":
+                    qrCodeTextareaRef.current?.focus();
+                    break;
+                case "phone":
+                    phoneInputRef.current?.focus();
+                    break;
+                case "email":
+                    emailInputRef.current?.focus();
+                    break;
+                case "fullName":
+                    fullNameInputRef.current?.focus();
+                    break;
+            }
+        }, 100); // Kısa bir gecikme ile focus
+
+        return () => clearTimeout(focusTimeout);
+    }, [searchType, qrCodeTextareaRef]);
 
     const handleHelpClick = () => {
         setShowHelp(!showHelp);
@@ -176,6 +203,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                     {searchType === "phone" && (
                                         <div className="relative">
                                             <input
+                                                ref={phoneInputRef}
                                                 type="tel"
                                                 inputMode="numeric"
                                                 pattern="[0-9]*"
@@ -191,6 +219,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                     {searchType === "email" && (
                                         <div className="relative">
                                             <input
+                                                ref={emailInputRef}
                                                 type="email"
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
@@ -204,6 +233,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                                     {searchType === "fullName" && (
                                         <div className="relative">
                                             <input
+                                                ref={fullNameInputRef}
                                                 type="text"
                                                 value={fullName}
                                                 onChange={(e) => setFullName(e.target.value)}
