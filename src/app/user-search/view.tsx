@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { User, SearchType } from "./viewModel";
 import BadgeCard from "../../components/BadgeCard";
 import { SearchForm } from "./widgets";
@@ -50,7 +51,7 @@ const UserSearchView: React.FC<UserSearchViewProps> = ({
 }) => {
     return (
         <div
-            className="min-h-screen w-full overflow-hidden relative"
+            className="min-h-screen w-full overflow-hidden relative flex flex-col"
             style={{ backgroundColor: "#1E184D" }}
         >
             {/* Background Pattern */}
@@ -60,9 +61,19 @@ const UserSearchView: React.FC<UserSearchViewProps> = ({
                 <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-white rounded-full -translate-x-1/2 translate-y-1/2"></div>
             </div>
 
-            <main className="relative flex flex-col py-8 px-4 md:px-8">
+            {/* Ana İçerik */}
+            <main className="flex-grow flex flex-col pt-8 px-4 md:px-8 relative">
                 {/* Header */}
                 <header className="w-full mb-8 flex flex-col items-center">
+                    <div className="mb-2 w-48 h-auto relative">
+                        <Image
+                            src="/white-tetz.png"
+                            alt="TETZ Logo"
+                            width={192}
+                            height={96}
+                            priority
+                        />
+                    </div>
                     <h1 className="text-2xl md:text-3xl font-bold text-center mb-2 text-white">
                         Türkiye Eğitim Teknolojileri Zirvesi
                     </h1>
@@ -70,41 +81,44 @@ const UserSearchView: React.FC<UserSearchViewProps> = ({
                     <div className="h-1 w-20 bg-gradient-to-r from-white/50 to-white/30"></div>
                 </header>
 
-                <div className="w-full max-w-4xl mx-auto">
-                    <SearchForm
-                        searchType={searchType}
-                        setSearchType={setSearchType}
-                        qrCode={qrCode}
-                        setQrCode={setQrCode}
-                        phoneNumber={phoneNumber}
-                        email={email}
-                        setEmail={setEmail}
-                        fullName={fullName}
-                        setFullName={setFullName}
-                        loading={loading}
-                        error={error}
-                        searched={searched}
-                        qrCodeTextareaRef={qrCodeTextareaRef}
-                        handlePhoneNumberChange={handlePhoneNumberChange}
-                        handleSubmit={handleSubmit}
-                        handleRefresh={handleRefresh}
-                        user={user}
-                        onPrint={handlePrintPDF}
-                        printLoading={printLoading}
-                    />
-
-                    {/* Yazdırılacak Yaka Kartı */}
-                    <div style={{ display: "none" }}>
-                        {user && <BadgeCard ref={badgeRef} user={user} customStyle={{ width: "10cm", height: "15cm" }} />}
+                <div className="flex items-start justify-center mt-4">
+                    <div className="w-full max-w-4xl">
+                        <SearchForm
+                            searchType={searchType}
+                            setSearchType={setSearchType}
+                            qrCode={qrCode}
+                            setQrCode={setQrCode}
+                            phoneNumber={phoneNumber}
+                            email={email}
+                            setEmail={setEmail}
+                            fullName={fullName}
+                            setFullName={setFullName}
+                            loading={loading}
+                            error={error}
+                            searched={searched}
+                            qrCodeTextareaRef={qrCodeTextareaRef}
+                            handlePhoneNumberChange={handlePhoneNumberChange}
+                            handleSubmit={handleSubmit}
+                            handleRefresh={handleRefresh}
+                            user={user}
+                            onPrint={handlePrintPDF}
+                            printLoading={printLoading}
+                        />
                     </div>
-
-                    {/* Footer */}
-                    <footer className="mt-8 text-center text-sm text-white/50">
-                        <p>© 2025 TETZ | Türkiye Eğitim Teknolojileri Zirvesi</p>
-                        <p className="mt-1">Tüm Hakları Saklıdır.</p>
-                    </footer>
                 </div>
             </main>
+
+            {/* Yazdırılacak Yaka Kartı */}
+            <div style={{ display: "none" }}>
+                {user && <BadgeCard ref={badgeRef} user={user} customStyle={{ width: "10cm", height: "15cm" }} />}
+            </div>
+
+            {/* Footer */}
+            <footer className="relative text-center py-4 text-white/60 text-sm border-t border-white/10">
+                © 2025 TETZ | Türkiye Eğitim Teknolojileri Zirvesi
+                <br />
+                Tüm Hakları Saklıdır.
+            </footer>
         </div>
     );
 };

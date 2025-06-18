@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { SearchType, User } from "../viewModel";
 import UserCard from "../../../components/UserCard";
-import { NotFound } from "./index";
 
 interface SearchFormProps {
     searchType: SearchType;
@@ -53,10 +52,9 @@ const SearchForm: React.FC<SearchFormProps> = ({
     };
 
     return (
-        <div className="flex justify-center w-full">
+        <div className="flex justify-center w-full pb-8">
             <div
-                className={`bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/50 p-6 transition-all duration-700 ease-in-out ${user || searched ? 'w-full' : 'w-[400px]'
-                    }`}
+                className={`bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/50 p-6 transition-all duration-700 ease-in-out ${user ? 'w-full' : 'w-[400px]'}`}
             >
                 <div className={`flex transition-all duration-700 ease-in-out ${user ? 'gap-8 opacity-100' : 'gap-0 opacity-100'
                     }`}>
@@ -257,12 +255,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
                             {error && (
                                 <div className="p-3 text-sm text-red-200 bg-red-500/20 rounded-md border border-red-400/30">
                                     {error}
-                                </div>
-                            )}
-
-                            {searched && !loading && !user && (
-                                <div className="p-4 text-center text-white/70 bg-white/5 rounded-lg border border-white/10">
-                                    <NotFound />
                                 </div>
                             )}
                         </div>
