@@ -6,9 +6,9 @@ interface ViewProps {
     loading: boolean;
     success: boolean;
     error: string | null;
-    onGeneralChange: (field: keyof SettingsData['general'], value: any) => void;
+    onGeneralChange: (field: keyof SettingsData['general'], value: string | boolean) => void;
     onNotificationsChange: (field: keyof SettingsData['notifications'], value: boolean) => void;
-    onSecurityChange: (field: keyof SettingsData['security'], value: any) => void;
+    onSecurityChange: (field: keyof SettingsData['security'], value: boolean | number | string) => void;
     onSave: () => void;
 }
 

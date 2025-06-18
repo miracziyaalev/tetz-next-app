@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import View from "./view";
 
@@ -40,11 +40,7 @@ const ViewModel = () => {
     const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
 
     // Session kontrolü
-    useEffect(() => {
-        checkAuth();
-    }, []);
-
-    const checkAuth = async () => {
+    const checkAuth = useCallback(async () => {
         try {
             const token = localStorage.getItem('adminToken');
 
@@ -80,7 +76,11 @@ const ViewModel = () => {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [router]);
+
+    useEffect(() => {
+        checkAuth();
+    }, [checkAuth]);
 
     const data: AdminData = {
         currentUser: {
