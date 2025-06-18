@@ -17,6 +17,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
+  devIndicators: {
+    position: 'bottom-right',
+  },
 };
 
 export default nextConfig;

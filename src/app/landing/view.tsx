@@ -4,17 +4,23 @@ import Image from "next/image";
 import { LandingData } from "./viewModel";
 import ActionButton from "./widgets/ActionButton";
 import PhonePreview from "./widgets/PhonePreview";
+import AdminLoginButton from "./widgets/AdminLoginButton";
+import AdminLoginModal from "./widgets/AdminLoginModal";
 
 interface ViewProps {
     data: LandingData;
-    isLoading: boolean;
     onQRGeneration: () => void;
+    showAdminModal: boolean;
+    onAdminLogin: () => void;
+    onCloseAdminModal: () => void;
 }
 
 const View: React.FC<ViewProps> = ({
     data,
-    isLoading,
-    onQRGeneration
+    onQRGeneration,
+    showAdminModal,
+    onAdminLogin,
+    onCloseAdminModal
 }) => {
     return (
         <div
@@ -22,7 +28,7 @@ const View: React.FC<ViewProps> = ({
             style={{ backgroundColor: data.backgroundColor }}
         >
             {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0 opacity-10 pointer-events-none">
                 <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
                 <div className="absolute top-1/4 right-0 w-64 h-64 bg-white rounded-full translate-x-1/2"></div>
                 <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-white rounded-full -translate-x-1/2 translate-y-1/2"></div>
@@ -37,6 +43,11 @@ const View: React.FC<ViewProps> = ({
                     height={80}
                     className="h-auto"
                 />
+            </div>
+
+            {/* Admin Login Button - Sağ Üst */}
+            <div className="absolute top-8 right-8 z-10">
+                <AdminLoginButton onAdminLogin={onAdminLogin} />
             </div>
 
             {/* Main Content */}
@@ -58,7 +69,7 @@ const View: React.FC<ViewProps> = ({
 
                     {/* Action Button */}
                     <ActionButton
-                        isLoading={isLoading}
+                        isLoading={false}
                         onClick={onQRGeneration}
                     />
                 </div>
@@ -68,6 +79,11 @@ const View: React.FC<ViewProps> = ({
                     <PhonePreview qrCodeUrl={data.qrCodeUrl} />
                 </div>
             </div>
+
+            {/* Admin Login Modal */}
+            {showAdminModal && (
+                <AdminLoginModal onClose={onCloseAdminModal} />
+            )}
         </div>
     );
 };
