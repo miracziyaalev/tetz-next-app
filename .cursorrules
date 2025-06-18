@@ -1,0 +1,221 @@
+# TETZ Projesi - Cursor AI Kuralları
+
+## 🏗️ Mimari Yapı Kuralları
+
+### MVVM (Model-View-ViewModel) Mimarisi
+- Her sayfa için ayrı klasör oluştur: `src/app/[sayfa-adi]/`
+- Her klasörde şu dosyalar olmalı:
+  - `viewModel.tsx` - Business logic ve state yönetimi
+  - `view.tsx` - Ana UI bileşeni
+  - `widgets/` - Yeniden kullanılabilir UI bileşenleri
+  - `page.tsx` - Sadece ViewModel'i import eder
+
+### Dosya İsimlendirme
+- **ViewModel**: `viewModel.tsx` (camelCase)
+- **View**: `view.tsx` (camelCase)
+- **Widgets**: `PascalCase.tsx` (örn: `SearchForm.tsx`)
+- **Global Components**: `PascalCase.tsx` (src/components/ altında)
+
+## 📝 Kod Yazım Kuralları
+
+### ViewModel Yapısı
+```typescript
+"use client";
+import React, { useState, useRef, useEffect } from "react";
+import ViewComponent from "./view";
+
+export interface DataType {
+  // Type definitions
+}
+
+const ViewModel = () => {
+  // State management
+  const [state, setState] = useState();
+  
+  // Business logic
+  const handleFunction = () => {
+    // Logic here
+  };
+  
+  // API calls
+  const fetchData = async () => {
+    // API logic here
+  };
+  
+  return <ViewComponent {...props} />;
+};
+
+export default ViewModel;
+```
+
+### View Yapısı
+```typescript
+import React from "react";
+import { DataType } from "./viewModel";
+import WidgetComponent from "./widgets/WidgetComponent";
+
+interface ViewProps {
+  // Props interface
+}
+
+const View: React.FC<ViewProps> = (props) => {
+  return (
+    <div>
+      <WidgetComponent {...widgetProps} />
+    </div>
+  );
+};
+
+export default View;
+```
+
+### Widget Yapısı
+```typescript
+import React from "react";
+
+interface WidgetProps {
+  // Props interface
+}
+
+const Widget: React.FC<WidgetProps> = (props) => {
+  return (
+    <div>
+      {/* UI only, no business logic */}
+    </div>
+  );
+};
+
+export default Widget;
+```
+
+## 🎯 Temel Prensipler
+
+### 1. Separation of Concerns
+- **ViewModel**: Sadece business logic, state yönetimi, API çağrıları
+- **View**: Sadece UI render etme, props ile veri alır
+- **Widgets**: Küçük, bağımsız UI bileşenleri, business logic içermez
+
+### 2. Props Yönetimi
+- ViewModel'den View'a tüm state ve fonksiyonlar props ile aktarılır
+- Widget'lara sadece gerekli props gönderilir
+- TypeScript interface'leri mutlaka kullanılır
+
+### 3. State Management
+- Local state için React Hooks kullanılır
+- State'ler ViewModel'de yönetilir
+- View ve Widget'larda state olmaz
+
+### 4. API Entegrasyonu
+- API çağrıları sadece ViewModel'de yapılır
+- Error handling ViewModel'de yönetilir
+- Loading state'leri ViewModel'de tutulur
+
+## 🎨 UI/UX Kuralları
+
+### Tasarım Sistemi
+- **Renkler**: TETZ brand renkleri (`#0066cc`, `#004b96`)
+- **Typography**: Sistem fontları
+- **Spacing**: Tailwind CSS spacing scale
+- **Components**: Tutarlı component library
+
+### Responsive Design
+- Mobile-first yaklaşım
+- Tailwind CSS breakpoint'leri kullan
+- Flexbox ve Grid layout'ları tercih et
+
+## 🔧 Geliştirme Kuralları
+
+### Yeni Sayfa Ekleme
+1. `src/app/[sayfa-adi]/` klasörü oluştur
+2. `viewModel.tsx` - Business logic
+3. `view.tsx` - UI yapısı
+4. `widgets/` - Gerekli widget'lar
+5. `page.tsx`'de ViewModel'i import et
+
+### Widget Oluşturma
+1. `widgets/` klasöründe `PascalCase.tsx` dosyası oluştur
+2. Props interface'i tanımla
+3. Sadece UI logic'i içer, business logic olmasın
+4. Yeniden kullanılabilir olacak şekilde tasarla
+
+### Component Bölme Kuralları
+- 50+ satırlık component'leri widget'lara böl
+- Tekrar eden UI parçalarını widget yap
+- Karmaşık form'ları ayrı widget'lara böl
+
+## 🚫 Yasaklı Uygulamalar
+
+### ViewModel'de Yapılmaması Gerekenler
+- JSX render etme
+- UI styling
+- DOM manipülasyonu
+
+### View'da Yapılmaması Gerekenler
+- Business logic
+- API çağrıları
+- State yönetimi (props dışında)
+
+### Widget'larda Yapılmaması Gerekenler
+- Business logic
+- API çağrıları
+- Global state yönetimi
+
+## ✅ Zorunlu Uygulamalar
+
+### TypeScript
+- Tüm dosyalarda TypeScript kullan
+- Interface'leri export et
+- Props tiplerini tanımla
+
+### Error Handling
+- ViewModel'de try-catch kullan
+- User-friendly error mesajları
+- Loading state'leri göster
+
+### Performance
+- React.memo kullan (gerektiğinde)
+- useCallback ve useMemo optimize et
+- Lazy loading uygula
+
+## 📁 Klasör Yapısı Şablonu
+
+```
+src/app/[sayfa-adi]/
+├── viewModel.tsx      # Business logic
+├── view.tsx           # UI yapısı
+├── widgets/           # UI bileşenleri
+│   ├── Component1.tsx
+│   ├── Component2.tsx
+│   └── index.ts       # Export barrel
+└── page.tsx           # Route entry point
+```
+
+## 🧪 Test Kuralları
+
+### Test Dosya Yapısı
+- ViewModel testleri: `viewModel.test.tsx`
+- View testleri: `view.test.tsx`
+- Widget testleri: `Component.test.tsx`
+
+### Test Prensipleri
+- ViewModel'ler için business logic testleri
+- Widget'lar için UI testleri
+- Integration testleri için sayfa seviyesinde testler
+
+## 🔄 Güncelleme Kuralları
+
+### Mevcut Kod Güncelleme
+1. Önce ViewModel'i güncelle
+2. Sonra View'ı güncelle
+3. Widget'ları gerekirse güncelle
+4. Test'leri güncelle
+
+### Yeni Özellik Ekleme
+1. ViewModel'e state ve logic ekle
+2. View'a props ekle
+3. Widget'ları güncelle veya yeni widget oluştur
+4. Test'leri yaz
+
+---
+
+**Not**: Bu kurallar, projenin tutarlılığını ve sürdürülebilirliğini sağlamak için oluşturulmuştur. Tüm geliştiriciler bu kurallara uymalıdır. 
