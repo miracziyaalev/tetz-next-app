@@ -12,8 +12,6 @@ interface ViewProps {
     loading: boolean;
     error: string | null;
     success: boolean;
-    stateSearchTerm: string;
-    citySearchTerm: string;
     showStateDropdown: boolean;
     showCityDropdown: boolean;
     filteredStates: Array<{ id: number; name: string }>;
@@ -35,8 +33,6 @@ const View: React.FC<ViewProps> = ({
     loading,
     error,
     success,
-    stateSearchTerm,
-    citySearchTerm,
     showStateDropdown,
     showCityDropdown,
     filteredStates,

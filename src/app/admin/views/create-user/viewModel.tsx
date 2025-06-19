@@ -107,13 +107,6 @@ const ViewModel = () => {
         const { name, value, type } = e.target;
         const checked = (e.target as HTMLInputElement).checked;
 
-        console.log('=== INPUT CHANGE DEBUG ===');
-        console.log('Field name:', name);
-        console.log('Field value:', value);
-        console.log('Field type:', type);
-        console.log('Checked:', checked);
-        console.log('==========================');
-
         setFormData(prev => ({
             ...prev,
             [name]: type === 'checkbox' ? checked : value
@@ -154,21 +147,6 @@ const ViewModel = () => {
         setLoading(true);
         setError(null);
         setSuccess(false);
-
-        // Debug: Form verisini detaylı logla
-        console.log('=== FORM DEBUG ===');
-        console.log('Form gönderilmeden önce veri:', formData);
-        console.log('Email:', formData.email);
-        console.log('Password:', formData.password ? '[HIDDEN]' : 'undefined');
-        console.log('Full Name:', formData.full_name);
-        console.log('Title:', formData.title);
-        console.log('Institution:', formData.institution);
-        console.log('Phone Number:', formData.phone_number);
-        console.log('Is in Education Sector:', formData.is_in_education_sector);
-        console.log('Education Sector Type:', formData.education_sector_type);
-        console.log('User State:', formData.user_state);
-        console.log('User Province:', formData.user_province);
-        console.log('==================');
 
         // Form validation
         const requiredFields = ['email', 'password', 'full_name', 'title', 'institution', 'phone_number'];
@@ -220,13 +198,6 @@ const ViewModel = () => {
                 user_state: formData.user_state,
                 user_province: formData.user_province
             };
-
-            console.log('=== API REQUEST DEBUG ===');
-            console.log('API\'ye gönderilecek veri:', {
-                ...requestData,
-                password: '[HIDDEN]'
-            });
-            console.log('========================');
 
             const response = await fetch('/api/auth/create-user', {
                 method: 'POST',
@@ -293,8 +264,6 @@ const ViewModel = () => {
             loading={loading}
             error={error}
             success={success}
-            stateSearchTerm={stateSearchTerm}
-            citySearchTerm={citySearchTerm}
             showStateDropdown={showStateDropdown}
             showCityDropdown={showCityDropdown}
             filteredStates={filteredStates}

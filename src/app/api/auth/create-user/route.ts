@@ -5,23 +5,6 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
         const { email, password, full_name, title, institution, phone_number, is_in_education_sector, education_sector_type, user_state, user_province } = body;
 
-        // Debug: Gelen veriyi detaylı logla
-        console.log('=== API ENDPOINT DEBUG ===');
-        console.log('Raw body:', body);
-        console.log('API\'ye gelen veri:', {
-            email: email || 'undefined',
-            password: password ? '[HIDDEN]' : 'undefined',
-            full_name: full_name || 'undefined',
-            title: title || 'undefined',
-            institution: institution || 'undefined',
-            phone_number: phone_number || 'undefined',
-            is_in_education_sector: is_in_education_sector,
-            education_sector_type: education_sector_type || 'undefined',
-            user_state: user_state || 'undefined',
-            user_province: user_province || 'undefined'
-        });
-        console.log('==========================');
-
         // Session kontrolü için admin kullanıcının token'ını al
         const authHeader = request.headers.get('authorization');
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -44,12 +27,6 @@ export async function POST(request: NextRequest) {
             user_province
         };
 
-        // Debug: Supabase'e gönderilecek veriyi logla
-        console.log('Supabase\'e gönderilecek veri:', {
-            ...requestData,
-            password: '[HIDDEN]'
-        });
-
         // Supabase Edge Function'ı çağır
         const response = await fetch('https://yrdzcrunsaahbyalnryr.supabase.co/functions/v1/create-user', {
             method: 'POST',
@@ -68,7 +45,6 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: data.error || 'Kullanıcı oluşturulamadı' }, { status: response.status });
         }
 
-        console.log('Başarılı yanıt:', data);
         return NextResponse.json({ success: true, data });
 
     } catch (error) {
