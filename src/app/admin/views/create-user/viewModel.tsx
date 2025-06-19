@@ -148,6 +148,38 @@ const ViewModel = () => {
         setError(null);
         setSuccess(false);
 
+        // Debug: Form verisini logla
+        console.log('Form gönderilmeden önce veri:', formData);
+
+        // Form validation
+        const requiredFields = ['email', 'password', 'full_name', 'title', 'institution', 'phone_number'];
+        const missingFields = requiredFields.filter(field => !formData[field as keyof CreateUserFormData]);
+
+        if (missingFields.length > 0) {
+            setError(`Eksik alanlar: ${missingFields.join(', ')}`);
+            setLoading(false);
+            return;
+        }
+
+        // Eğitim sektörü seçiliyse ek validation
+        if (formData.is_in_education_sector) {
+            if (!formData.education_sector_type) {
+                setError('Eğitim sektörü türü seçilmelidir');
+                setLoading(false);
+                return;
+            }
+            if (!formData.user_state) {
+                setError('İl seçilmelidir');
+                setLoading(false);
+                return;
+            }
+            if (!formData.user_province) {
+                setError('İlçe seçilmelidir');
+                setLoading(false);
+                return;
+            }
+        }
+
         try {
             // localStorage'dan admin token'ını al
             const adminToken = localStorage.getItem('adminToken');

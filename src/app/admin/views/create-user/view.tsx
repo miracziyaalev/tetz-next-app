@@ -246,8 +246,19 @@ const View: React.FC<ViewProps> = ({
                                                 type="text"
                                                 id="user_state"
                                                 name="user_state"
-                                                value={stateSearchTerm}
-                                                onChange={(e) => setStateSearchTerm(e.target.value)}
+                                                value={formData.user_state}
+                                                onChange={(e) => {
+                                                    const value = e.target.value;
+                                                    setStateSearchTerm(value);
+                                                    onInputChange({
+                                                        ...e,
+                                                        target: {
+                                                            ...e.target,
+                                                            name: 'user_state',
+                                                            value: value
+                                                        }
+                                                    } as React.ChangeEvent<HTMLInputElement>);
+                                                }}
                                                 onFocus={() => setShowStateDropdown(true)}
                                                 onBlur={() => setTimeout(() => setShowStateDropdown(false), 200)}
                                                 placeholder="İl ara veya seçiniz"
@@ -291,8 +302,19 @@ const View: React.FC<ViewProps> = ({
                                                 type="text"
                                                 id="user_province"
                                                 name="user_province"
-                                                value={citySearchTerm}
-                                                onChange={(e) => setCitySearchTerm(e.target.value)}
+                                                value={formData.user_province}
+                                                onChange={(e) => {
+                                                    const value = e.target.value;
+                                                    setCitySearchTerm(value);
+                                                    onInputChange({
+                                                        ...e,
+                                                        target: {
+                                                            ...e.target,
+                                                            name: 'user_province',
+                                                            value: value
+                                                        }
+                                                    } as React.ChangeEvent<HTMLInputElement>);
+                                                }}
                                                 onFocus={() => setShowCityDropdown(true)}
                                                 onBlur={() => setTimeout(() => setShowCityDropdown(false), 200)}
                                                 placeholder={!formData.user_state ? 'Önce il seçiniz' : 'İlçe ara veya seçiniz'}
