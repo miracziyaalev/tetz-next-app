@@ -5,19 +5,22 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
         const { email, password, full_name, title, institution, phone_number, is_in_education_sector, education_sector_type, user_state, user_province } = body;
 
-        // Debug: Gelen veriyi logla
+        // Debug: Gelen veriyi detaylı logla
+        console.log('=== API ENDPOINT DEBUG ===');
+        console.log('Raw body:', body);
         console.log('API\'ye gelen veri:', {
-            email,
+            email: email || 'undefined',
             password: password ? '[HIDDEN]' : 'undefined',
-            full_name,
-            title,
-            institution,
-            phone_number,
-            is_in_education_sector,
-            education_sector_type,
-            user_state,
-            user_province
+            full_name: full_name || 'undefined',
+            title: title || 'undefined',
+            institution: institution || 'undefined',
+            phone_number: phone_number || 'undefined',
+            is_in_education_sector: is_in_education_sector,
+            education_sector_type: education_sector_type || 'undefined',
+            user_state: user_state || 'undefined',
+            user_province: user_province || 'undefined'
         });
+        console.log('==========================');
 
         // Session kontrolü için admin kullanıcının token'ını al
         const authHeader = request.headers.get('authorization');

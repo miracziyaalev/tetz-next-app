@@ -250,14 +250,7 @@ const View: React.FC<ViewProps> = ({
                                                 onChange={(e) => {
                                                     const value = e.target.value;
                                                     setStateSearchTerm(value);
-                                                    onInputChange({
-                                                        ...e,
-                                                        target: {
-                                                            ...e.target,
-                                                            name: 'user_state',
-                                                            value: value
-                                                        }
-                                                    } as React.ChangeEvent<HTMLInputElement>);
+                                                    onInputChange(e);
                                                 }}
                                                 onFocus={() => setShowStateDropdown(true)}
                                                 onBlur={() => setTimeout(() => setShowStateDropdown(false), 200)}
@@ -306,14 +299,7 @@ const View: React.FC<ViewProps> = ({
                                                 onChange={(e) => {
                                                     const value = e.target.value;
                                                     setCitySearchTerm(value);
-                                                    onInputChange({
-                                                        ...e,
-                                                        target: {
-                                                            ...e.target,
-                                                            name: 'user_province',
-                                                            value: value
-                                                        }
-                                                    } as React.ChangeEvent<HTMLInputElement>);
+                                                    onInputChange(e);
                                                 }}
                                                 onFocus={() => setShowCityDropdown(true)}
                                                 onBlur={() => setTimeout(() => setShowCityDropdown(false), 200)}
