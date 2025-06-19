@@ -124,25 +124,7 @@ const ViewModel = () => {
     const renderActiveTab = () => {
         switch (activeTab) {
             case "overview":
-                return <OverviewViewModel data={{
-                    stats: data.stats,
-                    recentActivity: [
-                        {
-                            id: "1",
-                            type: "user_created",
-                            description: "Yeni kullanıcı oluşturuldu",
-                            timestamp: "2 saat önce",
-                            user: "admin@tetz.com"
-                        },
-                        {
-                            id: "2",
-                            type: "user_login",
-                            description: "Kullanıcı giriş yaptı",
-                            timestamp: "4 saat önce",
-                            user: "user@example.com"
-                        }
-                    ]
-                }} />;
+                return <OverviewViewModel />;
             case "createUser":
                 return <CreateUserViewModel />;
             case "users":
@@ -152,10 +134,7 @@ const ViewModel = () => {
             case "settings":
                 return <SettingsViewModel />;
             default:
-                return <OverviewViewModel data={{
-                    stats: data.stats,
-                    recentActivity: []
-                }} />;
+                return <OverviewViewModel />;
         }
     };
 

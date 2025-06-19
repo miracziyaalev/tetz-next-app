@@ -164,13 +164,7 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ onClose }) => {
                                 </button>
                             </form>
 
-                            {/* Demo Credentials */}
-                            <div className="p-4 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm">
-                                <p className="text-xs text-white/70 text-center">
-                                    <strong className="text-white/90">Demo Giriş:</strong><br />
-                                    <span className="text-white/80">E-posta: test2@test.com | Şifre: test</span>
-                                </p>
-                            </div>
+
                         </div>
                     </div>
                 </div>
