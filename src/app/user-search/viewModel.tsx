@@ -61,41 +61,6 @@ const UserSearchViewModel = () => {
         }
     }, [searchType]);
 
-    // Otomatik arama fonksiyonu
-    const handleAutoSearch = useCallback(async () => {
-        if (!qrCode.trim() || loading) return;
-        setLoading(true);
-        setError("");
-        setUser(null);
-        setSearched(true);
-        try {
-            const response = await fetch(`/api/users?qrCode=${encodeURIComponent(qrCode)}`);
-            const data = await response.json();
-            if (data.success === true && data.user) {
-                if (typeof data.user === 'object' && Object.keys(data.user).length > 0) {
-                    setUser(data.user);
-                } else {
-                    setError("Kullanıcı bilgileri eksik veya hatalı");
-                }
-            } else {
-                setError(data.message || "Kullanıcı bulunamadı. Lütfen bilgileri kontrol edip tekrar deneyin.");
-            }
-        } catch {
-            setError("Bir hata oluştu. Lütfen tekrar deneyin.");
-        } finally {
-            setLoading(false);
-        }
-    }, [qrCode, loading]);
-
-    useEffect(() => {
-        if (searchType === "qrCode" && qrCode.trim()) {
-            const timeoutId = setTimeout(() => {
-                handleAutoSearch();
-            }, 500);
-            return () => clearTimeout(timeoutId);
-        }
-    }, [qrCode, searchType, handleAutoSearch]);
-
     // PDF yazdırma fonksiyonu
     const handlePrintPDF = async () => {
         if (!badgeRef.current) return;
