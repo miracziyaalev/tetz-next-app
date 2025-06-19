@@ -84,7 +84,7 @@ const EducationSectorChart: React.FC<EducationSectorChartProps> = ({ data, total
         <div className="bg-white rounded-lg shadow-sm border border-gray-200">
             <div className="px-4 py-3 border-b border-gray-200">
                 <h3 className="text-base font-medium text-gray-900">Eğitim Sektörü Dağılımı</h3>
-                <p className="text-sm text-gray-500 mt-0.5">Toplam {total.toLocaleString()} eğitim sektöründe</p>
+                <p className="text-sm text-gray-500 mt-0.5">Toplam {total.toLocaleString()} kişi eğitim sektöründe</p>
             </div>
             <div className="p-4">
                 <div className="flex items-center">
