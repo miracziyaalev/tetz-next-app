@@ -46,7 +46,13 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ onClose }) => {
             if (data.success) {
                 // Session bilgilerini localStorage'a kaydet
                 localStorage.setItem('adminToken', data.session.access_token);
-                localStorage.setItem('adminUser', JSON.stringify(data.user));
+
+                // Kullanıcı bilgilerine son giriş zamanını ekle
+                const userWithLastLogin = {
+                    ...data.user,
+                    lastLogin: new Date().toISOString()
+                };
+                localStorage.setItem('adminUser', JSON.stringify(userWithLastLogin));
 
                 // Admin sayfasına yönlendir
                 router.push('/admin');

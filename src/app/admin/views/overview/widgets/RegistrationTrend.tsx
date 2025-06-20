@@ -47,7 +47,7 @@ const RegistrationTrend: React.FC<RegistrationTrendProps> = ({ data }) => {
     return (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200">
             <div className="px-6 py-4 border-b border-gray-200">
-                <h3 className="text-lg font-medium text-gray-900">Son 14 Günlük Kayıt Trendi</h3>
+                <h3 className="text-lg font-medium text-gray-900">Son 10 Günlük Kayıt Trendi</h3>
                 <p className="text-sm text-gray-500 mt-1">Günlük kayıt sayıları</p>
             </div>
             <div className="p-6">

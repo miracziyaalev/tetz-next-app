@@ -23,27 +23,25 @@ const View: React.FC<ViewProps> = ({
 }) => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-            <div className="flex">
-                {/* Sidebar */}
-                <Sidebar
-                    activeTab={activeTab}
-                    currentUser={data.currentUser}
-                    isLoggingOut={isLoggingOut}
-                    onTabChange={onTabChange}
-                    onLogout={onLogout}
-                />
+            {/* Sidebar */}
+            <Sidebar
+                activeTab={activeTab}
+                currentUser={data.currentUser}
+                isLoggingOut={isLoggingOut}
+                onTabChange={onTabChange}
+                onLogout={onLogout}
+            />
 
-                {/* Main Content */}
-                <div className="flex-1 min-h-screen">
-                    <div className="p-6">
-                        {isLoading ? (
-                            <div className="flex items-center justify-center h-64">
-                                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-                            </div>
-                        ) : (
-                            renderActiveTab()
-                        )}
-                    </div>
+            {/* Main Content */}
+            <div className="ml-64 min-h-screen">
+                <div className="p-6">
+                    {isLoading ? (
+                        <div className="flex items-center justify-center h-64">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                        </div>
+                    ) : (
+                        renderActiveTab()
+                    )}
                 </div>
             </div>
         </div>

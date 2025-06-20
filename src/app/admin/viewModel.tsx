@@ -1,19 +1,21 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import View from "./view";
 
 // Import view models
 import OverviewViewModel from "./views/overview/viewModel";
 import CreateUserViewModel from "./views/create-user/viewModel";
-import UsersViewModel from "./views/users/viewModel";
-import SettingsViewModel from "./views/settings/viewModel";
 import UserSearchViewModel from "./views/user-search/viewModel";
+import CompaniesViewModel from "./views/companies/viewModel";
+import CompanyDetailViewModel from "./views/company-detail/viewModel";
 
 export interface AdminData {
     currentUser: {
         email: string;
         name: string;
+        role?: string;
+        lastLogin?: string;
     };
     stats: {
         totalUsers: number;
@@ -27,17 +29,46 @@ export interface CurrentUser {
     email: string;
     name: string;
     role: string;
+    lastLogin?: string;
 }
 
-export type DashboardTab = "overview" | "createUser" | "users" | "userSearch" | "settings";
+export type DashboardTab = "overview" | "createUser" | "users" | "userSearch" | "companies" | "companyDetail" | "settings";
 
 const ViewModel = () => {
     const router = useRouter();
-    const [activeTab, setActiveTab] = useState<DashboardTab>("overview");
+    const searchParams = useSearchParams();
     const [isLoading, setIsLoading] = useState(true);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+    const [selectedCompanyId, setSelectedCompanyId] = useState<string | null>(null);
+
+    // URL'den tab'ı al, varsayılan olarak overview
+    const getActiveTabFromURL = useCallback((): DashboardTab => {
+        const tab = searchParams.get('tab') as DashboardTab;
+        const validTabs = ['overview', 'createUser', 'userSearch', 'companies', 'companyDetail'];
+
+        // Eğer tab geçerli değilse veya gizli sekmelerden biriyse overview'a yönlendir
+        if (!tab || !validTabs.includes(tab)) {
+            return 'overview';
+        }
+
+        return tab;
+    }, [searchParams]);
+
+    const [activeTab, setActiveTab] = useState<DashboardTab>(getActiveTabFromURL());
+
+    // URL değiştiğinde tab'ı güncelle
+    useEffect(() => {
+        const newTab = getActiveTabFromURL();
+        setActiveTab(newTab);
+
+        // Şirket detayları için ID'yi al
+        if (newTab === 'companyDetail') {
+            const companyId = searchParams.get('companyId');
+            setSelectedCompanyId(companyId);
+        }
+    }, [searchParams, getActiveTabFromURL]);
 
     // Session kontrolü
     const checkAuth = useCallback(async () => {
@@ -68,7 +99,15 @@ const ViewModel = () => {
                 setIsAuthenticated(true);
                 setCurrentUser(data.user);
             } else {
-                router.push('/');
+                // API'den veri gelmezse localStorage'dan al
+                const storedUser = localStorage.getItem('adminUser');
+                if (storedUser) {
+                    const parsedUser = JSON.parse(storedUser);
+                    setCurrentUser(parsedUser);
+                    setIsAuthenticated(true);
+                } else {
+                    router.push('/');
+                }
             }
         } catch (error) {
             console.error('Auth check error:', error);
@@ -85,7 +124,9 @@ const ViewModel = () => {
     const data: AdminData = {
         currentUser: {
             email: currentUser?.email || "admin@tetz.com",
-            name: currentUser?.name || "TETZ Admin"
+            name: currentUser?.name || "TETZ Admin",
+            role: currentUser?.role || "admin",
+            lastLogin: currentUser?.lastLogin || new Date().toISOString()
         },
         stats: {
             totalUsers: 1250,
@@ -96,6 +137,10 @@ const ViewModel = () => {
 
     const handleTabChange = (tab: DashboardTab) => {
         setActiveTab(tab);
+        // URL'yi güncelle
+        const params = new URLSearchParams(searchParams);
+        params.set('tab', tab);
+        router.push(`/admin?${params.toString()}`);
     };
 
     const handleLogout = async () => {
@@ -127,12 +172,16 @@ const ViewModel = () => {
                 return <OverviewViewModel />;
             case "createUser":
                 return <CreateUserViewModel />;
-            case "users":
-                return <UsersViewModel />;
             case "userSearch":
                 return <UserSearchViewModel />;
+            case "companies":
+                return <CompaniesViewModel />;
+            case "companyDetail":
+                return selectedCompanyId ? <CompanyDetailViewModel /> : <CompaniesViewModel />;
+            case "users":
             case "settings":
-                return <SettingsViewModel />;
+                // Bu sekmeler şimdilik gizli (mock veri)
+                return <OverviewViewModel />;
             default:
                 return <OverviewViewModel />;
         }
