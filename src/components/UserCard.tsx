@@ -48,6 +48,50 @@ const UserCard = ({ user, onPrint, printLoading = false, variant = "dark" }: Use
         ? user.profile_picture_url
         : defaultProfileImage;
 
+    // TETZ Entry API çağrısı
+    const handleTetzEntry = async (userId: string) => {
+        try {
+            console.log('🚀 TETZ Entry - API çağrısı başlatılıyor:', { userId });
+
+            const response = await fetch('/api/tetz-entry', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    p_user_id: userId
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('TETZ Entry Error:', errorData);
+                // Hata durumunda kullanıcıya bilgi verebiliriz
+                // Şimdilik sessizce devam ediyoruz
+            } else {
+                const data = await response.json();
+                console.log('✅ TETZ Entry başarılı:', data);
+            }
+        } catch (error) {
+            console.error('TETZ Entry API Error:', error);
+            // Hata durumunda kullanıcıya bilgi verebiliriz
+            // Şimdilik sessizce devam ediyoruz
+        }
+    };
+
+    // Yazdır butonu işleyicisi
+    const handlePrint = async () => {
+        if (user?.id) {
+            // Önce TETZ entry kaydı oluştur
+            await handleTetzEntry(user.id);
+        }
+
+        // Sonra normal yazdırma işlemini gerçekleştir
+        if (onPrint) {
+            onPrint();
+        }
+    };
+
     // Kullanıcı verisi yoksa boş div döndür
     if (!user || typeof user !== 'object') {
         return <div className="p-4 text-center text-gray-500">Kullanıcı bilgileri yüklenemedi.</div>;
@@ -107,7 +151,7 @@ const UserCard = ({ user, onPrint, printLoading = false, variant = "dark" }: Use
                 {/* Yazdır Butonu */}
                 {onPrint && (
                     <button
-                        onClick={onPrint}
+                        onClick={handlePrint}
                         disabled={printLoading}
                         className={`mt-3 flex items-center justify-center gap-2 px-4 py-1.5 rounded-lg transition-all duration-200 border backdrop-blur-sm w-full ${printLoading
                             ? buttonDisabledClass

@@ -15,7 +15,9 @@ export interface OverviewData {
         }>;
     };
     fair_activity_stats: {
-        entries_today: number;
+        tetz_entries_today: number;
+        total_tetz_entries: number;
+        gate_entries_today: number;
     };
     registration_trends: {
         daily_registrations_last_14_days: Array<{
@@ -85,7 +87,9 @@ const ViewModel: React.FC = () => {
                             top_10_states: dashboardData.location_stats?.top_10_states ?? []
                         },
                         fair_activity_stats: {
-                            entries_today: dashboardData.fair_activity_stats?.entries_today ?? 0
+                            tetz_entries_today: dashboardData.fair_activity_stats?.tetz_entries_today ?? 0,
+                            total_tetz_entries: dashboardData.fair_activity_stats?.total_tetz_entries ?? 0,
+                            gate_entries_today: dashboardData.fair_activity_stats?.gate_entries_today ?? 0
                         },
                         registration_trends: {
                             daily_registrations_last_14_days: dashboardData.registration_trends?.daily_registrations_last_14_days ?? []
