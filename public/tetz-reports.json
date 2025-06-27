@@ -1,0 +1,1359 @@
+{
+    "report": [
+        {
+            "state": "İstanbul",
+            "districts": [
+                {
+                    "count": 128,
+                    "province": "Bahçelievler"
+                },
+                {
+                    "count": 116,
+                    "province": "Bağcılar"
+                },
+                {
+                    "count": 88,
+                    "province": "Başakşehir"
+                },
+                {
+                    "count": 87,
+                    "province": "Küçükçekmece"
+                },
+                {
+                    "count": 85,
+                    "province": "Esenyurt"
+                },
+                {
+                    "count": 68,
+                    "province": "Kadıköy"
+                },
+                {
+                    "count": 59,
+                    "province": "Bakırköy"
+                },
+                {
+                    "count": 58,
+                    "province": "Güngören"
+                },
+                {
+                    "count": 54,
+                    "province": "Fatih"
+                },
+                {
+                    "count": 46,
+                    "province": "Pendik"
+                },
+                {
+                    "count": 45,
+                    "province": "Bayrampaşa"
+                },
+                {
+                    "count": 43,
+                    "province": "Üsküdar"
+                },
+                {
+                    "count": 36,
+                    "province": "Eyüp"
+                },
+                {
+                    "count": 36,
+                    "province": "Şişli"
+                },
+                {
+                    "count": 35,
+                    "province": "Büyükçekmece"
+                },
+                {
+                    "count": 35,
+                    "province": "Ataşehir"
+                },
+                {
+                    "count": 32,
+                    "province": "Sultangazi"
+                },
+                {
+                    "count": 29,
+                    "province": "Çekmeköy"
+                },
+                {
+                    "count": 25,
+                    "province": "Esenler"
+                },
+                {
+                    "count": 25,
+                    "province": "Beşiktaş"
+                },
+                {
+                    "count": 23,
+                    "province": "Beylikdüzü"
+                },
+                {
+                    "count": 23,
+                    "province": "Beyoğlu"
+                },
+                {
+                    "count": 22,
+                    "province": "Kağıthane"
+                },
+                {
+                    "count": 21,
+                    "province": "Avcılar"
+                },
+                {
+                    "count": 20,
+                    "province": "Zeytinburnu"
+                },
+                {
+                    "count": 19,
+                    "province": "Kartal"
+                },
+                {
+                    "count": 17,
+                    "province": "Maltepe"
+                },
+                {
+                    "count": 17,
+                    "province": "Gaziosmanpaşa"
+                },
+                {
+                    "count": 16,
+                    "province": "Sultanbeyli"
+                },
+                {
+                    "count": 15,
+                    "province": "Sancaktepe"
+                },
+                {
+                    "count": 15,
+                    "province": "Tuzla"
+                },
+                {
+                    "count": 13,
+                    "province": "Ümraniye"
+                },
+                {
+                    "count": 12,
+                    "province": "Sarıyer"
+                },
+                {
+                    "count": 10,
+                    "province": "Adalar"
+                },
+                {
+                    "count": 7,
+                    "province": "Çatalca"
+                },
+                {
+                    "count": 6,
+                    "province": "Arnavutköy"
+                },
+                {
+                    "count": 6,
+                    "province": "Beykoz"
+                },
+                {
+                    "count": 4,
+                    "province": "Şile"
+                },
+                {
+                    "count": 3,
+                    "province": "Silivri"
+                }
+            ],
+            "total_users": 1399
+        },
+        {
+            "state": "Ankara",
+            "districts": [
+                {
+                    "count": 71,
+                    "province": "Yenimahalle"
+                },
+                {
+                    "count": 48,
+                    "province": "Çankaya"
+                },
+                {
+                    "count": 45,
+                    "province": "Mamak"
+                },
+                {
+                    "count": 37,
+                    "province": "Sincan"
+                },
+                {
+                    "count": 24,
+                    "province": "Pursaklar"
+                },
+                {
+                    "count": 24,
+                    "province": "Etimesgut"
+                },
+                {
+                    "count": 14,
+                    "province": "Keçiören"
+                },
+                {
+                    "count": 13,
+                    "province": "Kazan"
+                },
+                {
+                    "count": 11,
+                    "province": "Altındağ"
+                },
+                {
+                    "count": 11,
+                    "province": "Polatlı"
+                },
+                {
+                    "count": 8,
+                    "province": "Gölbaşı"
+                },
+                {
+                    "count": 7,
+                    "province": "Beypazarı"
+                },
+                {
+                    "count": 6,
+                    "province": "Güdül"
+                },
+                {
+                    "count": 5,
+                    "province": "Akyurt"
+                },
+                {
+                    "count": 5,
+                    "province": "Haymana"
+                },
+                {
+                    "count": 3,
+                    "province": "Ayaş"
+                },
+                {
+                    "count": 3,
+                    "province": "Şereflikoçhisar"
+                },
+                {
+                    "count": 2,
+                    "province": "Elmadağ"
+                },
+                {
+                    "count": 1,
+                    "province": "Bala"
+                },
+                {
+                    "count": 1,
+                    "province": "Çubuk"
+                },
+                {
+                    "count": 1,
+                    "province": "Nallıhan"
+                }
+            ],
+            "total_users": 340
+        },
+        {
+            "state": "Kırklareli",
+            "districts": [
+                {
+                    "count": 201,
+                    "province": "Kırklareli"
+                },
+                {
+                    "count": 68,
+                    "province": "Lüleburgaz"
+                },
+                {
+                    "count": 38,
+                    "province": "Babaeski"
+                },
+                {
+                    "count": 13,
+                    "province": "Pınarhisar"
+                },
+                {
+                    "count": 3,
+                    "province": "Pehlivanköy"
+                }
+            ],
+            "total_users": 323
+        },
+        {
+            "state": "Tekirdağ",
+            "districts": [
+                {
+                    "count": 50,
+                    "province": "Çerkezköy"
+                },
+                {
+                    "count": 37,
+                    "province": "Kapaklı"
+                },
+                {
+                    "count": 34,
+                    "province": "Marmaraereğlisi"
+                },
+                {
+                    "count": 34,
+                    "province": "Ergene"
+                },
+                {
+                    "count": 28,
+                    "province": "Malkara"
+                },
+                {
+                    "count": 27,
+                    "province": "Çorlu"
+                },
+                {
+                    "count": 26,
+                    "province": "Muratlı"
+                },
+                {
+                    "count": 24,
+                    "province": "Saray"
+                },
+                {
+                    "count": 23,
+                    "province": "Süleymanpaşa"
+                },
+                {
+                    "count": 18,
+                    "province": "Şarköy"
+                },
+                {
+                    "count": 16,
+                    "province": "Hayrabolu"
+                }
+            ],
+            "total_users": 317
+        },
+        {
+            "state": "Kocaeli",
+            "districts": [
+                {
+                    "count": 47,
+                    "province": "Karamürsel"
+                },
+                {
+                    "count": 39,
+                    "province": "İzmit"
+                },
+                {
+                    "count": 32,
+                    "province": "Çayırova"
+                },
+                {
+                    "count": 28,
+                    "province": "Başiskele"
+                },
+                {
+                    "count": 28,
+                    "province": "Körfez"
+                },
+                {
+                    "count": 23,
+                    "province": "Gebze"
+                },
+                {
+                    "count": 21,
+                    "province": "Kartepe"
+                },
+                {
+                    "count": 20,
+                    "province": "Kandıra"
+                },
+                {
+                    "count": 18,
+                    "province": "Gölcük"
+                },
+                {
+                    "count": 12,
+                    "province": "Dilovası"
+                },
+                {
+                    "count": 8,
+                    "province": "Darıca"
+                },
+                {
+                    "count": 2,
+                    "province": "Derince"
+                }
+            ],
+            "total_users": 278
+        },
+        {
+            "state": "İzmir",
+            "districts": [
+                {
+                    "count": 28,
+                    "province": "Kemalpaşa"
+                },
+                {
+                    "count": 26,
+                    "province": "Çiğli"
+                },
+                {
+                    "count": 24,
+                    "province": "Karşıyaka"
+                },
+                {
+                    "count": 20,
+                    "province": "Bergama"
+                },
+                {
+                    "count": 16,
+                    "province": "Torbalı"
+                },
+                {
+                    "count": 15,
+                    "province": "Tire"
+                },
+                {
+                    "count": 15,
+                    "province": "Karabağlar"
+                },
+                {
+                    "count": 12,
+                    "province": "Buca"
+                },
+                {
+                    "count": 11,
+                    "province": "Konak"
+                },
+                {
+                    "count": 9,
+                    "province": "Bayraklı"
+                },
+                {
+                    "count": 9,
+                    "province": "Balçova"
+                },
+                {
+                    "count": 8,
+                    "province": "Güzelbahçe"
+                },
+                {
+                    "count": 6,
+                    "province": "Çeşme"
+                },
+                {
+                    "count": 5,
+                    "province": "Narlıdere"
+                },
+                {
+                    "count": 4,
+                    "province": "Gaziemir"
+                },
+                {
+                    "count": 3,
+                    "province": "Menemen"
+                },
+                {
+                    "count": 3,
+                    "province": "Aliağa"
+                },
+                {
+                    "count": 3,
+                    "province": "Ödemiş"
+                },
+                {
+                    "count": 2,
+                    "province": "Bayındır"
+                },
+                {
+                    "count": 2,
+                    "province": "Bornova"
+                },
+                {
+                    "count": 1,
+                    "province": "Urla"
+                },
+                {
+                    "count": 1,
+                    "province": "Menderes"
+                },
+                {
+                    "count": 1,
+                    "province": "Beydağ"
+                }
+            ],
+            "total_users": 224
+        },
+        {
+            "state": "Sakarya",
+            "districts": [
+                {
+                    "count": 41,
+                    "province": "Adapazarı"
+                },
+                {
+                    "count": 35,
+                    "province": "Erenler"
+                },
+                {
+                    "count": 32,
+                    "province": "Serdivan"
+                },
+                {
+                    "count": 17,
+                    "province": "Kocaali"
+                },
+                {
+                    "count": 14,
+                    "province": "Akyazı"
+                },
+                {
+                    "count": 14,
+                    "province": "Karasu"
+                },
+                {
+                    "count": 14,
+                    "province": "Arifiye"
+                },
+                {
+                    "count": 14,
+                    "province": "Hendek"
+                },
+                {
+                    "count": 10,
+                    "province": "Kaynarca"
+                },
+                {
+                    "count": 10,
+                    "province": "Pamukova"
+                },
+                {
+                    "count": 9,
+                    "province": "Sapanca"
+                },
+                {
+                    "count": 9,
+                    "province": "Geyve"
+                },
+                {
+                    "count": 3,
+                    "province": "Karapürçek"
+                }
+            ],
+            "total_users": 222
+        },
+        {
+            "state": "Balıkesir",
+            "districts": [
+                {
+                    "count": 46,
+                    "province": "Bandırma"
+                },
+                {
+                    "count": 43,
+                    "province": "Altıeylül"
+                },
+                {
+                    "count": 39,
+                    "province": "Karesi"
+                },
+                {
+                    "count": 22,
+                    "province": "Edremit"
+                },
+                {
+                    "count": 17,
+                    "province": "Ayvalık"
+                }
+            ],
+            "total_users": 167
+        },
+        {
+            "state": "",
+            "districts": [
+                {
+                    "count": 102,
+                    "province": ""
+                }
+            ],
+            "total_users": 102
+        },
+        {
+            "state": "Manisa",
+            "districts": [
+                {
+                    "count": 35,
+                    "province": "Alaşehir"
+                },
+                {
+                    "count": 17,
+                    "province": "Soma"
+                },
+                {
+                    "count": 10,
+                    "province": "Gölmarmara"
+                },
+                {
+                    "count": 8,
+                    "province": "Akhisar"
+                },
+                {
+                    "count": 7,
+                    "province": "Yunusemre"
+                },
+                {
+                    "count": 6,
+                    "province": "Ahmetli"
+                },
+                {
+                    "count": 6,
+                    "province": "Salihli"
+                },
+                {
+                    "count": 3,
+                    "province": "Şehzadeler"
+                },
+                {
+                    "count": 3,
+                    "province": "Turgutlu"
+                },
+                {
+                    "count": 3,
+                    "province": "Saruhanlı"
+                },
+                {
+                    "count": 2,
+                    "province": "Selendi"
+                },
+                {
+                    "count": 1,
+                    "province": "Kula"
+                },
+                {
+                    "count": 1,
+                    "province": "Sarıgöl"
+                }
+            ],
+            "total_users": 102
+        },
+        {
+            "state": "Bursa",
+            "districts": [
+                {
+                    "count": 26,
+                    "province": "Nilüfer"
+                },
+                {
+                    "count": 18,
+                    "province": "Yıldırım"
+                },
+                {
+                    "count": 12,
+                    "province": "Osmangazi"
+                },
+                {
+                    "count": 7,
+                    "province": "İnegöl"
+                },
+                {
+                    "count": 6,
+                    "province": "Orhangazi"
+                },
+                {
+                    "count": 4,
+                    "province": "Mudanya"
+                },
+                {
+                    "count": 4,
+                    "province": "Kestel"
+                },
+                {
+                    "count": 3,
+                    "province": "Mustafakemalpaşa"
+                },
+                {
+                    "count": 2,
+                    "province": "İznik"
+                },
+                {
+                    "count": 2,
+                    "province": "Karacabey"
+                },
+                {
+                    "count": 1,
+                    "province": "Gürsu"
+                },
+                {
+                    "count": 1,
+                    "province": "Keles"
+                },
+                {
+                    "count": 1,
+                    "province": "Gemlik"
+                }
+            ],
+            "total_users": 87
+        },
+        {
+            "state": "Çanakkale",
+            "districts": [
+                {
+                    "count": 28,
+                    "province": "Çanakkale"
+                },
+                {
+                    "count": 10,
+                    "province": "Çan"
+                },
+                {
+                    "count": 8,
+                    "province": "Lapseki"
+                },
+                {
+                    "count": 8,
+                    "province": "Ezine"
+                },
+                {
+                    "count": 7,
+                    "province": "Yenice"
+                },
+                {
+                    "count": 6,
+                    "province": "Gelibolu"
+                },
+                {
+                    "count": 5,
+                    "province": "Biga"
+                },
+                {
+                    "count": 5,
+                    "province": "Ayvacık"
+                },
+                {
+                    "count": 1,
+                    "province": "Bayramiç"
+                }
+            ],
+            "total_users": 78
+        },
+        {
+            "state": "Edirne",
+            "districts": [
+                {
+                    "count": 26,
+                    "province": "Edirne"
+                },
+                {
+                    "count": 16,
+                    "province": "Keşan"
+                },
+                {
+                    "count": 12,
+                    "province": "Uzunköprü"
+                }
+            ],
+            "total_users": 54
+        },
+        {
+            "state": "Eskişehir",
+            "districts": [
+                {
+                    "count": 23,
+                    "province": "Tepebaşı"
+                },
+                {
+                    "count": 17,
+                    "province": "Odunpazarı"
+                },
+                {
+                    "count": 1,
+                    "province": "Beylikova"
+                }
+            ],
+            "total_users": 41
+        },
+        {
+            "state": "Bolu",
+            "districts": [
+                {
+                    "count": 24,
+                    "province": "Bolu"
+                },
+                {
+                    "count": 3,
+                    "province": "Mudurnu"
+                },
+                {
+                    "count": 1,
+                    "province": "Göynük"
+                }
+            ],
+            "total_users": 28
+        },
+        {
+            "state": "Düzce",
+            "districts": [
+                {
+                    "count": 18,
+                    "province": "Düzce"
+                },
+                {
+                    "count": 4,
+                    "province": "Yığılca"
+                },
+                {
+                    "count": 1,
+                    "province": "Çilimli"
+                },
+                {
+                    "count": 1,
+                    "province": "Gölyaka"
+                },
+                {
+                    "count": 1,
+                    "province": "Gümüşova"
+                }
+            ],
+            "total_users": 25
+        },
+        {
+            "state": "Bilecik",
+            "districts": [
+                {
+                    "count": 10,
+                    "province": "Bilecik"
+                },
+                {
+                    "count": 6,
+                    "province": "Bozüyük"
+                },
+                {
+                    "count": 4,
+                    "province": "Söğüt"
+                },
+                {
+                    "count": 3,
+                    "province": "Osmaneli"
+                },
+                {
+                    "count": 1,
+                    "province": "Pazaryeri"
+                }
+            ],
+            "total_users": 24
+        },
+        {
+            "state": "Yalova",
+            "districts": [
+                {
+                    "count": 10,
+                    "province": "Yalova"
+                },
+                {
+                    "count": 2,
+                    "province": "Altınova"
+                },
+                {
+                    "count": 1,
+                    "province": "Armutlu"
+                },
+                {
+                    "count": 1,
+                    "province": "Çiftlikköy"
+                }
+            ],
+            "total_users": 14
+        },
+        {
+            "state": "Antalya",
+            "districts": [
+                {
+                    "count": 2,
+                    "province": "Muratpaşa"
+                },
+                {
+                    "count": 1,
+                    "province": "Kepez"
+                },
+                {
+                    "count": 1,
+                    "province": "Alanya"
+                },
+                {
+                    "count": 1,
+                    "province": "Serik"
+                },
+                {
+                    "count": 1,
+                    "province": "Konyaaltı"
+                },
+                {
+                    "count": 1,
+                    "province": "Finike"
+                }
+            ],
+            "total_users": 7
+        },
+        {
+            "state": "Diyarbakır",
+            "districts": [
+                {
+                    "count": 3,
+                    "province": "Kayapınar"
+                },
+                {
+                    "count": 2,
+                    "province": "Ergani"
+                },
+                {
+                    "count": 1,
+                    "province": "Bağlar"
+                },
+                {
+                    "count": 1,
+                    "province": "Sur"
+                }
+            ],
+            "total_users": 7
+        },
+        {
+            "state": "Aydın",
+            "districts": [
+                {
+                    "count": 5,
+                    "province": "Efeler"
+                },
+                {
+                    "count": 1,
+                    "province": "Bozdoğan"
+                }
+            ],
+            "total_users": 6
+        },
+        {
+            "state": "Şanlıurfa",
+            "districts": [
+                {
+                    "count": 2,
+                    "province": "Haliliye"
+                },
+                {
+                    "count": 1,
+                    "province": "Birecik"
+                },
+                {
+                    "count": 1,
+                    "province": "Harran"
+                },
+                {
+                    "count": 1,
+                    "province": "Eyyübiye"
+                },
+                {
+                    "count": 1,
+                    "province": "Viranşehir"
+                }
+            ],
+            "total_users": 6
+        },
+        {
+            "state": "Gaziantep",
+            "districts": [
+                {
+                    "count": 5,
+                    "province": "Şehitkamil"
+                },
+                {
+                    "count": 1,
+                    "province": "Nurdağı"
+                }
+            ],
+            "total_users": 6
+        },
+        {
+            "state": "Hatay",
+            "districts": [
+                {
+                    "count": 2,
+                    "province": "Reyhanlı"
+                },
+                {
+                    "count": 2,
+                    "province": "Dörtyol"
+                },
+                {
+                    "count": 1,
+                    "province": "Kırıkhan"
+                }
+            ],
+            "total_users": 5
+        },
+        {
+            "state": "Konya",
+            "districts": [
+                {
+                    "count": 2,
+                    "province": "Karatay"
+                },
+                {
+                    "count": 1,
+                    "province": "Sarayönü"
+                },
+                {
+                    "count": 1,
+                    "province": "Meram"
+                },
+                {
+                    "count": 1,
+                    "province": "Selçuklu"
+                }
+            ],
+            "total_users": 5
+        },
+        {
+            "state": "Malatya",
+            "districts": [
+                {
+                    "count": 2,
+                    "province": "Battalgazi"
+                },
+                {
+                    "count": 1,
+                    "province": "Arapgir"
+                },
+                {
+                    "count": 1,
+                    "province": "Yeşilyurt"
+                }
+            ],
+            "total_users": 4
+        },
+        {
+            "state": "Isparta",
+            "districts": [
+                {
+                    "count": 2,
+                    "province": "Eğirdir"
+                },
+                {
+                    "count": 2,
+                    "province": "Yalvaç"
+                }
+            ],
+            "total_users": 4
+        },
+        {
+            "state": "Denizli",
+            "districts": [
+                {
+                    "count": 2,
+                    "province": "Merkezefendi"
+                },
+                {
+                    "count": 1,
+                    "province": "Pamukkale"
+                }
+            ],
+            "total_users": 3
+        },
+        {
+            "state": "Ordu",
+            "districts": [
+                {
+                    "count": 2,
+                    "province": "Altınordu"
+                },
+                {
+                    "count": 1,
+                    "province": "Ulubey"
+                }
+            ],
+            "total_users": 3
+        },
+        {
+            "state": "Karabük",
+            "districts": [
+                {
+                    "count": 2,
+                    "province": "Karabük"
+                },
+                {
+                    "count": 1,
+                    "province": "Safranbolu"
+                }
+            ],
+            "total_users": 3
+        },
+        {
+            "state": "Mersin",
+            "districts": [
+                {
+                    "count": 2,
+                    "province": "Yenişehir"
+                },
+                {
+                    "count": 1,
+                    "province": "Silifke"
+                }
+            ],
+            "total_users": 3
+        },
+        {
+            "state": "Kayseri",
+            "districts": [
+                {
+                    "count": 2,
+                    "province": "Kocasinan"
+                },
+                {
+                    "count": 1,
+                    "province": "Develi"
+                }
+            ],
+            "total_users": 3
+        },
+        {
+            "state": "Elazığ",
+            "districts": [
+                {
+                    "count": 3,
+                    "province": "Elazığ"
+                }
+            ],
+            "total_users": 3
+        },
+        {
+            "state": "Zonguldak",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Ereğli"
+                },
+                {
+                    "count": 1,
+                    "province": "Zonguldak"
+                }
+            ],
+            "total_users": 2
+        },
+        {
+            "state": "Batman",
+            "districts": [
+                {
+                    "count": 2,
+                    "province": "Batman"
+                }
+            ],
+            "total_users": 2
+        },
+        {
+            "state": "Mardin",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Artuklu"
+                },
+                {
+                    "count": 1,
+                    "province": "Kızıltepe"
+                }
+            ],
+            "total_users": 2
+        },
+        {
+            "state": "Muğla",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Milas"
+                },
+                {
+                    "count": 1,
+                    "province": "Bodrum"
+                }
+            ],
+            "total_users": 2
+        },
+        {
+            "state": "Adana",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Seyhan"
+                },
+                {
+                    "count": 1,
+                    "province": "Yüreğir"
+                }
+            ],
+            "total_users": 2
+        },
+        {
+            "state": "Trabzon",
+            "districts": [
+                {
+                    "count": 2,
+                    "province": "Ortahisar"
+                }
+            ],
+            "total_users": 2
+        },
+        {
+            "state": "Bingöl",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Bingöl"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Nevşehir",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Nevşehir"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Giresun",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Giresun"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Ağrı",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Tutak"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Samsun",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Canik"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Erzurum",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Yakutiye"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Sivas",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Sivas"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Şırnak",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Şırnak"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Yozgat",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Yozgat"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Tokat",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Zile"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Çorum",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Çorum"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Uşak",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Uşak"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Artvin",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Ardanuç"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Amasya",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Amasya"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Van",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Tuşba"
+                }
+            ],
+            "total_users": 1
+        },
+        {
+            "state": "Kars",
+            "districts": [
+                {
+                    "count": 1,
+                    "province": "Sarıkamış"
+                }
+            ],
+            "total_users": 1
+        }
+    ],
+    "success": true
+}

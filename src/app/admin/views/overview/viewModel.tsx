@@ -34,13 +34,26 @@ export interface OverviewData {
     };
 }
 
+export interface LocationReportData {
+    report: Array<{
+        state: string;
+        districts: Array<{
+            count: number;
+            province: string;
+        }>;
+        total_users: number;
+    }>;
+    success: boolean;
+}
+
 const ViewModel: React.FC = () => {
     const [data, setData] = useState<OverviewData | null>(null);
+    const [locationReportData, setLocationReportData] = useState<LocationReportData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchDashboardData = async () => {
+        const fetchAllData = async () => {
             try {
                 setLoading(true);
                 setError(null);
@@ -54,27 +67,36 @@ const ViewModel: React.FC = () => {
 
                 console.log('Admin token bulundu');
 
-                // Dashboard verilerini al
-                const response = await fetch('/api/dashboard', {
-                    headers: {
-                        'Authorization': `Bearer ${adminToken}`
-                    }
-                });
+                // Dashboard ve konum raporu verilerini paralel olarak al
+                const [dashboardResponse, locationReportResponse] = await Promise.all([
+                    fetch('/api/dashboard', {
+                        headers: {
+                            'Authorization': `Bearer ${adminToken}`
+                        }
+                    }),
+                    fetch('/api/location-report', {
+                        headers: {
+                            'Authorization': `Bearer ${adminToken}`
+                        }
+                    })
+                ]);
 
-                console.log('Dashboard API response status:', response.status);
+                console.log('Dashboard API response status:', dashboardResponse.status);
+                console.log('Location Report API response status:', locationReportResponse.status);
 
-                if (!response.ok) {
-                    const errorData = await response.json();
+                // Dashboard verilerini işle
+                if (!dashboardResponse.ok) {
+                    const errorData = await dashboardResponse.json();
                     console.error('Dashboard API error:', errorData);
                     throw new Error(errorData.message || 'Dashboard verileri alınamadı');
                 }
 
-                const result = await response.json();
-                console.log('Dashboard API result:', result);
+                const dashboardResult = await dashboardResponse.json();
+                console.log('Dashboard API result:', dashboardResult);
 
-                if (result.success && result.data) {
+                if (dashboardResult.success && dashboardResult.data) {
                     // Data validation
-                    const dashboardData = result.data;
+                    const dashboardData = dashboardResult.data;
 
                     // Güvenli data yapısı oluştur
                     const safeData: OverviewData = {
@@ -102,18 +124,32 @@ const ViewModel: React.FC = () => {
 
                     setData(safeData);
                 } else {
-                    throw new Error('Veri formatı geçersiz');
+                    throw new Error('Dashboard veri formatı geçersiz');
+                }
+
+                // Konum raporu verilerini işle
+                if (locationReportResponse.ok) {
+                    const locationReportResult = await locationReportResponse.json();
+                    console.log('Location Report API result:', locationReportResult);
+
+                    if (locationReportResult.success && locationReportResult.data) {
+                        setLocationReportData(locationReportResult.data);
+                    } else {
+                        console.warn('Konum raporu verisi alınamadı, ancak devam ediliyor');
+                    }
+                } else {
+                    console.warn('Konum raporu API hatası, ancak devam ediliyor');
                 }
 
             } catch (err) {
-                console.error('Dashboard veri çekme hatası:', err);
+                console.error('Veri çekme hatası:', err);
                 setError(err instanceof Error ? err.message : 'Bilinmeyen hata');
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchDashboardData();
+        fetchAllData();
     }, []);
 
     if (loading) {
@@ -145,7 +181,7 @@ const ViewModel: React.FC = () => {
         );
     }
 
-    return <View data={data} />;
+    return <View data={data} locationReportData={locationReportData} />;
 };
 
 export default ViewModel; 

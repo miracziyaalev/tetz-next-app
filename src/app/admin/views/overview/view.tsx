@@ -1,17 +1,19 @@
 import React from "react";
-import { OverviewData } from "./viewModel";
+import { OverviewData, LocationReportData } from "./viewModel";
 import {
     StatsCard,
     LocationChart,
     RegistrationTrend,
-    EducationSectorChart
+    EducationSectorChart,
+    DetailedLocationReport
 } from "./widgets";
 
 interface ViewProps {
     data: OverviewData | null;
+    locationReportData: LocationReportData | null;
 }
 
-const View: React.FC<ViewProps> = ({ data }) => {
+const View: React.FC<ViewProps> = ({ data, locationReportData }) => {
     if (!data) {
         return (
             <div className="flex items-center justify-center min-h-screen">
@@ -70,7 +72,7 @@ const View: React.FC<ViewProps> = ({ data }) => {
                     value={generalStats.new_users_today}
                     icon={
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2z" />
                         </svg>
                     }
                     bgColor="bg-purple-100"
@@ -106,6 +108,9 @@ const View: React.FC<ViewProps> = ({ data }) => {
 
             {/* Location Chart - Full Width */}
             <LocationChart data={locationStats.top_10_states || []} />
+
+            {/* Detailed Location Report - Full Width */}
+            <DetailedLocationReport data={locationReportData?.report || []} />
         </div>
     );
 };
